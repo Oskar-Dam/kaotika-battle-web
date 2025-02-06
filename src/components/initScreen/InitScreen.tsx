@@ -2,7 +2,7 @@ import 'animate.css';
 import { useEffect, useState } from 'react';
 import InitCharacter from './InitCharacter';
 import KaotikaLegendsLogo from './KaotikaLengedsLogo';
-import warrior from '/images/Warrior1.png';
+import warrior from '/images/warrior_1_1.png';
 
 interface InitScreenInterface {
   // eslint-disable-next-line no-unused-vars
