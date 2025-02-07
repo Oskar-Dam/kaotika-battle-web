@@ -8,10 +8,11 @@ import useStore from '../store/store';
 import { socketName } from './socketConstants';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, setWinner } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishTurn, setFinishTurn] = useState<boolean>(false);
+  const [finishGame, setFinishGame] = useState<boolean>(false);
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
@@ -92,7 +93,8 @@ export const useSocketListeners = () => {
     function gameEnd(winner: string){
       console.log('WINNER IS:');
       console.log(winner);
-      
+      setWinner(winner);
+      setFinishGame(true);
     }
 
     socket.on(socketName.GAME_END, gameEnd);
@@ -126,5 +128,5 @@ export const useSocketListeners = () => {
   }, [players]);
 
 
-  return { startBattle, finishTurn };
+  return { startBattle, finishTurn, finishGame };
 };
