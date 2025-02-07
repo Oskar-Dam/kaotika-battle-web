@@ -8,6 +8,7 @@ import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
+import Meteors from './components/battle/Meteors';
 
 function App() {
   const { startBattle, finishTurn } = useSocketListeners();
@@ -28,7 +29,9 @@ function App() {
   return (
     <>
       {!showMainContent && (
-        <div className={`absolute inset-0 z-50 ${fadeOut ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}>
+        <div
+          className={`absolute inset-0 z-50 ${fadeOut ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}
+        >
           <InitAltScreen setAnimationFinished={setAnimationFinished} />
         </div>
       )}
@@ -38,7 +41,10 @@ function App() {
         style={{ backgroundImage: `url(${battleImage})` }}>
         {/* Header Container */}
         {startBattle && <HeaderContainer />}
-        
+
+        {/* Meteors */}
+        <Meteors/>
+
         {/* Battle Container */}
         {startBattle && <BattleContainer />}
         {!startBattle && <WaitingBattle />}
