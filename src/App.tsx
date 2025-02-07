@@ -8,6 +8,7 @@ import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
+import Meteors from './components/battle/Meteors';
 
 function App() {
   const { startBattle, finishTurn } = useSocketListeners();
@@ -40,6 +41,9 @@ function App() {
         style={{ backgroundImage: `url(${battleImage})` }}>
         {/* Header Container */}
         {startBattle && <HeaderContainer />}
+
+        {/* Meteors */}
+        <Meteors/>
 
         {/* Battle Container */}
         {startBattle && <BattleContainer />}
