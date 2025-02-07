@@ -89,7 +89,13 @@ export const useSocketListeners = () => {
       setDisconnectedPlayer(nickName);
     }
 
-    socket.on(socketName.GAME_END, () => {});
+    function gameEnd(winner: string){
+      console.log('WINNER IS:');
+      console.log(winner);
+      
+    }
+
+    socket.on(socketName.GAME_END, gameEnd);
     socket.on(socketName.CONNECT, onConnect);
     socket.on(socketName.DISCONNECT, onDisconnect);
     socket.on(socketName.WEBSENDUSER, webSendUser);
@@ -114,7 +120,7 @@ export const useSocketListeners = () => {
       socket.off(socketName.UPDATEPLAYER, updatePlayer);
       socket.off(socketName.ASSIGNTURN, assignTurn);
       socket.off(socketName.REMOVEPLAYER, removePlayer);
-      socket.off(socketName.GAME_END, );
+      socket.off(socketName.GAME_END, gameEnd);
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
     };
   }, [players]);
