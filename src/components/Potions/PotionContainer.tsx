@@ -1,47 +1,31 @@
 import React from 'react';
-import getPotionImages from '../../helpers/getPotionsByattacker';
 import useStore from '../../store/store';
+import potion from '/images/potion.png';
 import potion_disabled from '/images/potion_disabled.png';
-import { Inventory } from '../../Interfaces/Inventory';
 
 const PotionContainer: React.FC = () => {
   const { attacker } = useStore();
-  const defaultInventory = {
-    antidote_potions: [],
-    healing_potions: [],
-    enhancer_potions: []
-  };
-
   const betrayer = attacker?.isBetrayer;
-
-  const inventory: Inventory = attacker?.inventory || defaultInventory;
-  const potionImages = getPotionImages(inventory);
+  const attackerPotions = Object.entries(attacker!.equipment).filter(([key]) => key != 'weapon');
 
   if (attacker) {
     return (
-      <div className={`flex flex-col h-auto w-1/12 justify-center items-center ${betrayer? 'ml-auto' : 'mr-auto'}`}>
-        <div className="flex flex-col">
-          {[...Array(3)].map((_, index) => (
+      <div className={`flex h-full w-1/12 justify-center items-center ${betrayer ? 'ml-auto' : 'mr-auto'}`}>
+        <div className='flex flex-col'>
+          {attackerPotions.map((_, i) => (
             <div
-              key={index}
-              className="relative flex flex-col items-center">
+              key={i}
+              className='relative flex flex-col items-center'>
               <img
-                className="w-28 h-28 mb-2"
-                src={potion_disabled}
-                draggable="false" />
-              {potionImages[index] && <img
-                className="absolute w-16 h-16 top-5"
-                src={potionImages[index]}
-                draggable="false" />}
+                className='w-full p-[3%_15%]'
+                src={attackerPotions[i][1] != null ? potion : potion_disabled}
+                draggable='false' />
             </div>
           ))}
         </div>
       </div>
     );
   }
-
-
 };
 
 export default PotionContainer;
-
