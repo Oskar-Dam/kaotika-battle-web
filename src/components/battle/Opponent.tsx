@@ -8,26 +8,28 @@ interface OpponentProps {
   styleClass: string;
 }
 
-const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass}) => {
+const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   const [warriorPhoto, setWarriorPhoto] = useState<string>('');
 
   useEffect(() => {
-    if(player !== null){
+    if (player !== null) {
       const warriorPhoto = getPhotoByLoyalty(player);
       setWarriorPhoto(warriorPhoto);
     }
   }, [player]);
 
   return (
-    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mr-[5%] mt-[15%]`}>
+    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%]`}>
 
       {warriorPhoto !== '' ? (
-        <img
-          src={warriorPhoto}
-          className={`h-full w-full object-cover z-0 ${styles}`}
-          
-        />
-      ) : null} 
+        <>
+          <div className='absolute bottom-[5%] w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
+          <img
+            src={warriorPhoto}
+            className={`w-full object-cover ${styles}`}
+          />
+        </>
+      ) : null}
 
     </div>
   );
