@@ -9,10 +9,10 @@ const Battle: React.FC = () => {
   return (
     <div className="w-[98%] flex justify-around items-center">
       <Opponent
-        player={attacker!}
+        player={attacker?.isBetrayer ? defender! : attacker!}
         styleClass={'animate__backInUp'} ></Opponent>
       <Opponent
-        player={defender!}
+        player={attacker?.isBetrayer ? attacker! : defender!}
         styles="transform scale-x-[-1]"
         styleClass={'animate__backInUp transform scale-x-[-1]'}></Opponent>
     </div>

@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import BattleContainer from './components/battle/BattleContainer';
 import FinishTurn from './components/battle/finishTurn';
 import WaitingBattle from './components/battle/WaitingBattle';
 import Hud from './components/footer/Hud';
 import HeaderContainer from './components/header/HeaderContainer';
+import InitAltScreen from './components/initScreen/initAnimation';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
-import InitAltScreen from './components/initScreen/initAnimation';
 
 function App() {
   const { startBattle, finishTurn } = useSocketListeners();
@@ -32,9 +32,9 @@ function App() {
           <InitAltScreen setAnimationFinished={setAnimationFinished} />
         </div>
       )}
-      
+
       <div
-        className={`w-screen h-screen bg-center bg-cover overflow-hidden ${showMainContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
+        className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}
         style={{ backgroundImage: `url(${battleImage})` }}>
         {/* Header Container */}
         {startBattle && <HeaderContainer />}
