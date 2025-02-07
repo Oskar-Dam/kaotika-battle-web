@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import './App.css';
@@ -51,24 +52,9 @@ function App({ number = 20, ...props }: MeteorsProps) {
         </div>
       )}
 
-      <div      
-        className={`w-screen h-screen bg-center bg-cover overflow-hidden ${showMainContent ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
-        style={{ backgroundImage: `url(${battleImage})` }}
-      >
-        
-        {[...meteorStyles].map((style, idx) => (
-          // Meteor head
-          <span
-            key={idx}
-            className={clsx('pointer-events-none absolute left-1/2 top-1/2 size-2 rotate-[215deg] animate-meteor rounded-full bg-red-500 shadow-[0_0_0_1px_#ffffff10]')}
-            style={style}
-            {...props}
-          >
-            {/* Meteor Tail */}
-            <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-red-500 to-transparent" />
-          </span>
-        ))}
-
+      <div
+        className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}
+        style={{ backgroundImage: `url(${battleImage})` }}>
         {/* Header Container */}
         {startBattle && <HeaderContainer />}
 
