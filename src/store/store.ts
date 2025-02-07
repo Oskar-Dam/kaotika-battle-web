@@ -22,6 +22,8 @@ const useStore = create<AppState>()((set) => ({
   setTimer: (timer: number) => set(() => ({ timer: timer })),
   disconnectedPlayer: '',
   setDisconnectedPlayer: (disconnectedPlayer: string) => set(() => ({ disconnectedPlayer: disconnectedPlayer })),
+  winner: '',
+  setWinner: (winner: string) => set(() => ({ winner: winner })),
 }));
 
 export default useStore;
