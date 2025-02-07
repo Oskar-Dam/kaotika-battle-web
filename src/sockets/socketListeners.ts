@@ -8,7 +8,7 @@ import useStore from '../store/store';
 import { socketName } from './socketConstants';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setAttacker, addDravocar, addKaotika, attacker } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishTurn, setFinishTurn] = useState<boolean>(false);
@@ -83,6 +83,12 @@ export const useSocketListeners = () => {
       setPlayers(deletePlayerById(players, id));
     }
 
+    function playerDisconnected(nickName: string) {
+      console.log('DISCONNECTED PLAYER');
+      console.log(nickName);
+      setDisconnectedPlayer(nickName);
+    }
+
     socket.on(socketName.GAME_END, () => {});
     socket.on(socketName.CONNECT, onConnect);
     socket.on(socketName.DISCONNECT, onDisconnect);
@@ -93,6 +99,7 @@ export const useSocketListeners = () => {
     socket.on(socketName.UPDATEPLAYER, updatePlayer);
     socket.on(socketName.ASSIGNTURN, assignTurn);
     socket.on(socketName.REMOVEPLAYER, removePlayer);
+    socket.on(socketName.PLAYERDISCONNECTED, playerDisconnected);
 
     console.log('PLAYERS');
     console.log(players);
@@ -108,6 +115,7 @@ export const useSocketListeners = () => {
       socket.off(socketName.ASSIGNTURN, assignTurn);
       socket.off(socketName.REMOVEPLAYER, removePlayer);
       socket.off(socketName.GAME_END, );
+      socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
     };
   }, [players]);
 

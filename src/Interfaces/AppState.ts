@@ -17,4 +17,6 @@ export interface AppState {
   setPlayers: (players: PlayersRole) => void;
   timer: number;
   setTimer: (timer: number) => void;
+  disconnectedPlayer: string,
+  setDisconnectedPlayer: (disconnectedPlayer: string) => void;
 }
