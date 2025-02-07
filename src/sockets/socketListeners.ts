@@ -12,7 +12,7 @@ export const useSocketListeners = () => {
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishTurn, setFinishTurn] = useState<boolean>(false);
-  const [finishGame, setFinishGame] = useState<boolean>(true);
+  const [finishGame, setFinishGame] = useState<boolean>(false);
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
