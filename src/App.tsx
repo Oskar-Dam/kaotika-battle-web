@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import './App.css';
 import BattleContainer from './components/battle/BattleContainer';
 import FinishTurn from './components/battle/finishTurn';
@@ -11,26 +9,11 @@ import InitAltScreen from './components/initScreen/initAnimation';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
 
-interface MeteorsProps extends React.HTMLAttributes<HTMLSpanElement> {
-  number?: number;
-}
-
-function App({ number = 20, ...props }: MeteorsProps) {
+function App() {
   const { startBattle, finishTurn } = useSocketListeners();
   const [animationFinished, setAnimationFinished] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
-  const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([]);
-
-  useEffect(() => {
-    const styles = [...new Array(number)].map(() => ({
-      top: Math.floor(Math.random() * window.innerHeight) + 'px',
-      left: Math.floor(Math.random() * window.innerWidth) + 'px',
-      animationDelay: Math.random() * 1 + 0.2 + 's',
-      animationDuration: Math.floor(Math.random() * 8 + 2) + 's',
-    }));
-    setMeteorStyles(styles);
-  }, [number]);
 
   useEffect(() => {
     if (animationFinished) {
