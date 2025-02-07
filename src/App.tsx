@@ -7,6 +7,7 @@ import WaitingBattle from './components/battle/WaitingBattle';
 import Hud from './components/footer/Hud';
 import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
+import WinnerText from './components/winner/WinnerText';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
 
@@ -42,20 +43,23 @@ function App() {
           style={{ backgroundImage: `url(${battleImage})` }}>
           {/* Header Container */}
           {startBattle && <HeaderContainer />}
-      
+
           {/* Meteors */}
-          <Meteors/>
-      
+          <Meteors />
+
           {/* Battle Container */}
           {startBattle && <BattleContainer />}
           {!startBattle && <WaitingBattle />}
-      
+
           {finishTurn && startBattle && <FinishTurn />}
-      
+
           {/* Footer Container */}
           <Hud />
         </div>
-      ):null}
+      ) :
+        <div className={'flex flex-col overflow-hidden absolute inset-0 bg-center bg-cover justify-center items-center transition-opacity duration-2000 \'opacity-100\' : \'opacity-0\'}'}>
+          <WinnerText/>
+        </div>}
 
     </>
   );
