@@ -1,6 +1,6 @@
 import React from 'react';
 import useStore from '../../store/store';
-import potion from '/images/potion.png';
+import potion from '/images/potion.gif';
 import potion_disabled from '/images/potion_disabled.png';
 
 const PotionContainer: React.FC = () => {
