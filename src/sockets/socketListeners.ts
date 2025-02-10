@@ -5,7 +5,7 @@ import getPlayerById from '../helpers/getPlayerById';
 import updatePlayerById from '../helpers/updatePlayerById';
 import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
-import { socketName } from './socketConstants';
+import { socketName } from '../constants/socketConstants';
 
 export const useSocketListeners = () => {
   const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner } = useStore();
