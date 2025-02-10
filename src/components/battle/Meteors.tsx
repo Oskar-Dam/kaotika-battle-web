@@ -9,18 +9,20 @@ type Meteor = {
   duration: number;
   size: number;
   progress: number;
+  isFromLeft: boolean
 };
 
 const Meteors = () => {
   const [meteors, setMeteors] = useState<Meteor[]>([]);
 
   const createMeteor = (): Meteor => {
-    const startX = Math.random() * window.innerWidth;
-    const startY = -20;
-    const endX = startX - 500;
-    const endY = window.innerHeight + 20;
-    const duration = 1000 + Math.random() * 2000;
-    const size = 2 + Math.random() * 4;
+    const isFromLeft = Math.random() > 0.5;
+    const startX = isFromLeft ? -500 : window.innerWidth;
+    const startY = Math.random() * 410;
+    const endX = isFromLeft ? window.innerWidth + 500 : -500;
+    const endY = window.innerHeight + 50;
+    const duration = 1000 + Math.random() * 4000;
+    const size = 1 + Math.random() * 8;
     const id = Date.now() + Math.random();
 
     return {
@@ -31,7 +33,8 @@ const Meteors = () => {
       endY,
       duration,
       size,
-      progress: 0
+      progress: 0,
+      isFromLeft
     };
   };
 
@@ -41,7 +44,7 @@ const Meteors = () => {
         const filtered = prev.filter(meteor => meteor.progress < 1);
         return [...filtered, createMeteor()];
       });
-    }, 300);
+    },800);
 
     const animationInterval = setInterval(() => {
       setMeteors(prev =>
@@ -61,7 +64,11 @@ const Meteors = () => {
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
       {meteors.map(meteor => {
         const currentX = meteor.startX + (meteor.endX - meteor.startX) * meteor.progress;
-        const currentY = meteor.startY + (meteor.endY - meteor.startY) * meteor.progress;
+
+        const rotateValue = meteor.isFromLeft ? 'rotate(220deg)' : 'rotate(50deg)';
+        
+        const arcHeight = Math.sin(meteor.progress * Math.PI) * 250;
+        const currentY = meteor.startY - arcHeight;
 
         return (
           <div
@@ -72,9 +79,9 @@ const Meteors = () => {
               top: `${currentY}px`,
               width: `${meteor.size * 20}px`,
               height: `${meteor.size * 20}px`,
-              opacity: 1 - meteor.progress,
-              transform: 'rotate(-15deg)',
-              backgroundImage: 'url(/images/meteor.png)',
+              opacity: 1,
+              transform: `${rotateValue}`,
+              backgroundImage: 'url(/images/meteors.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
