@@ -21,8 +21,8 @@ const Meteors = () => {
     const startY = Math.random() * 410;
     const endX = isFromLeft ? window.innerWidth + 500 : -500;
     const endY = window.innerHeight + 50;
-    const duration = 1000 + Math.random() * 4000;
-    const size = 1 + Math.random() * 8;
+    const duration = 3000;
+    const size = 1 + Math.random() * 4;
     const id = Date.now() + Math.random();
 
     return {
@@ -44,7 +44,7 @@ const Meteors = () => {
         const filtered = prev.filter(meteor => meteor.progress < 1);
         return [...filtered, createMeteor()];
       });
-    },800);
+    },2000);
 
     const animationInterval = setInterval(() => {
       setMeteors(prev =>
