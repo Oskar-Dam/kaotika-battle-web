@@ -16,9 +16,11 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
     setIsAtacking(true);
   }, []);
   useEffect(() => {
-    if (player !== null) {
+    if (player) {
       const warriorPhoto = getPhotoByLoyalty(player);
       setWarriorPhoto(warriorPhoto);
+    } else {
+      setWarriorPhoto('');
     }
   }, [player]);
 

@@ -41,12 +41,14 @@ export const useSocketListeners = () => {
       setIsConnected(false);
     }
 
-    function webSendUser(data: Player) {
-      console.log('enter in send user' + data);
-      if (data.isBetrayer) {
-        addDravocar(data);
-      } else {
-        addKaotika(data);
+    function webSetUser(data: Player) {
+      console.log('enter in send user' + data.nickname);
+      if (data) {
+        if (data.isBetrayer) {
+          addDravocar(data);
+        } else {
+          addKaotika(data);
+        }
       }
     }
 
@@ -104,11 +106,11 @@ export const useSocketListeners = () => {
     function updateTimer(timer: number) {
       setTimer(timer);
     }
-    
+
     socket.on(socketName.GAME_END, () => { });
     socket.on(socketName.CONNECT, onConnect);
     socket.on(socketName.DISCONNECT, onDisconnect);
-    socket.on(socketName.WEBSENDUSER, webSendUser);
+    socket.on(socketName.WEBSENDUSER, webSetUser);
     socket.on(socketName.CONNECTEDUSERS, connectedUsers);
     socket.on(socketName.GAMESTART, gameStart);
     socket.on(socketName.WEBSELECTEDPLAYER, webSelectedPlayer);
@@ -124,7 +126,7 @@ export const useSocketListeners = () => {
     return () => {
       socket.off(socketName.CONNECT, onConnect);
       socket.off(socketName.DISCONNECT, onDisconnect);
-      socket.off(socketName.WEBSENDUSER, webSendUser);
+      socket.off(socketName.WEBSENDUSER, webSetUser);
       socket.off(socketName.CONNECTEDUSERS, connectedUsers);
       socket.off(socketName.GAMESTART, gameStart);
       socket.off(socketName.WEBSELECTEDPLAYER, webSelectedPlayer);

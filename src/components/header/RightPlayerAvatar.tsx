@@ -10,16 +10,17 @@ const RightPlayerAvatar: React.FC<RightPlayerAvatarInterface> = ({ player, isAtt
 
   return (
     <div className='flex flex-start h-[55%] w-[7%] mr-[4.5%] justify-center items-center'>
-
-      {isAttacker &&
-        <div className="absolute h-[80%] w-[23%] z-20 bg-[url('/images/selected_player.png')] bg-cover blink" />
-      }
-      {player !== null ? (
-        <img
-          src={player.avatar}
-          alt='Player Avatar'
-          className='h-full w-full object-cover z-0 rounded-[100%]'
-        />
+      {player ? (
+        <>
+          {isAttacker &&
+            <div className="absolute h-[80%] w-[23%] z-20 bg-[url('/images/selected_player.png')] bg-cover blink" />
+          }
+          <img
+            src={player.avatar}
+            alt='Player Avatar'
+            className='h-full w-full object-cover z-0 rounded-[100%]'
+          />
+        </>
       ) : <img
         src={defaultAvatar}
         alt='Player Avatar'
