@@ -22,8 +22,8 @@ const DisconnectUser: React.FC = () => {
     isVisible ? (
       <div
         key={disconnectedPlayer}
-        className='flex flex-col absolute top-[30%] h-[5%] w-[40%] bg-[#00000050] justify-center animate__animated animate__backOutUp animate__delay-2s rounded-md'
-        style={{ animationDuration: '2s', textShadow:'3px 3px 3px black', boxShadow: '0 0 60px black' }}
+        className='absolute top-[30%] h-[5%] w-[60%] bg-[rgba(0,_0,_0,_0.4)] animate__animated animate__backOutUp animate__delay-2s rounded-md shadow-[0_0_30px_30px_rgba(0,_0,_0,_0.4)]'
+        style={{ animationDuration: '2s' }}
       >
         <p className='text-5xl text-red-600'>{disconnectedPlayer} <span className='text-6xl'>has been disconnected!</span></p>
       </div>
