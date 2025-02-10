@@ -4,7 +4,7 @@ import BattleContainer from './components/battle/BattleContainer';
 import FinishTurn from './components/battle/finishTurn';
 import Meteors from './components/battle/Meteors';
 import WaitingBattle from './components/battle/WaitingBattle';
-import Hud from './components/footer/Hud';
+import Hud from './components/footer/HudAlt';
 import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
 import WinnerText from './components/winner/WinnerText';

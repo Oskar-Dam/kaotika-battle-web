@@ -4,7 +4,7 @@ import potion from '/images/potion.png';
 import potion_disabled from '/images/potion_disabled.png';
 
 const PotionContainer: React.FC = () => {
-  const { attacker } = useStore();
+  const { attacker, finishTurn } = useStore();
   const betrayer = attacker?.isBetrayer;
   const attackerPotions = Object.entries(attacker!.equipment).filter(([key]) => key != 'weapon');
 
@@ -17,13 +17,13 @@ const PotionContainer: React.FC = () => {
               key={i}
               className='relative flex flex-col items-center'>
               <img
-                className='w-full p-[3%_15%]'
+                className={`w-full p-[3%_15%] animate__animated ${betrayer ? 'animate__backInRight' : 'animate__backInLeft'} ${betrayer && finishTurn && 'animate__zoomOutRight'} ${!betrayer && finishTurn && 'animate__zoomOutLeft'}`}
                 src={attackerPotions[i][1] != null ? potion : potion_disabled}
                 draggable='false' />
             </div>
           ))}
         </div>
-      </div>
+      </div >
     );
   }
 };

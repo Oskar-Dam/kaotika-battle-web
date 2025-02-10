@@ -9,5 +9,6 @@ export const socketName = {
   REMOVEPLAYER: 'removePlayer',
   WEBSENDUSER: 'web-sendUser',
   PLAYERDISCONNECTED: 'web-playerDisconnected',
-  GAME_END: 'gameEnd'
+  GAME_END: 'gameEnd',
+  SEND_TIMER: 'send-timer',
 };

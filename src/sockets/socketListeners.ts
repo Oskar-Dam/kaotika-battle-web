@@ -8,10 +8,9 @@ import useStore from '../store/store';
 import { socketName } from './socketConstants';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, setWinner } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
-  const [finishTurn, setFinishTurn] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
 
   useEffect(() => {
@@ -26,10 +25,12 @@ export const useSocketListeners = () => {
   useEffect(() => {
     if (timer === 0) {
       console.log('SEND TURN END SOCKET');
-      socket.emit('web-turnEnd');
       setFinishTurn(true);
+      setTimeout(() => {
+        socket.emit('web-turnEnd');
+      }, 1000);
     };
-  }, [socket, timer]);
+  }, [timer]);
 
   useEffect(() => {
     function onConnect() {
@@ -40,7 +41,7 @@ export const useSocketListeners = () => {
       setIsConnected(false);
     }
 
-    function webSendUser(data: Player){
+    function webSendUser(data: Player) {
       console.log('enter in send user' + data);
       if (data.isBetrayer) {
         addDravocar(data);
@@ -54,7 +55,7 @@ export const useSocketListeners = () => {
       setPlayers(data);
     }
 
-    function gameStart(){
+    function gameStart() {
       console.log('enter in socket gameStart');
       setStartBattle(true);
     }
@@ -67,8 +68,10 @@ export const useSocketListeners = () => {
     function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
       console.log('daño: ' + totalDamage);
       setPlayers(updatePlayerById(players, id, attr));
-      socket.emit('web-turnEnd');
       setFinishTurn(true);
+      setTimeout(() => {
+        socket.emit('web-turnEnd');
+      }, 1000);
     }
 
     function assignTurn(id: string) {
@@ -79,7 +82,7 @@ export const useSocketListeners = () => {
       setFinishTurn(false);
     }
 
-    function removePlayer(id: string) : void{
+    function removePlayer(id: string): void {
       console.log('remove player with the id ' + id);
       setPlayers(deletePlayerById(players, id));
     }
@@ -98,6 +101,11 @@ export const useSocketListeners = () => {
     }
 
     socket.on(socketName.GAME_END, gameEnd);
+    function updateTimer(timer: number) {
+      setTimer(timer);
+    }
+    
+    socket.on(socketName.GAME_END, () => { });
     socket.on(socketName.CONNECT, onConnect);
     socket.on(socketName.DISCONNECT, onDisconnect);
     socket.on(socketName.WEBSENDUSER, webSendUser);
@@ -108,6 +116,7 @@ export const useSocketListeners = () => {
     socket.on(socketName.ASSIGNTURN, assignTurn);
     socket.on(socketName.REMOVEPLAYER, removePlayer);
     socket.on(socketName.PLAYERDISCONNECTED, playerDisconnected);
+    socket.on(socketName.SEND_TIMER, updateTimer);
 
     console.log('PLAYERS');
     console.log(players);
@@ -124,6 +133,7 @@ export const useSocketListeners = () => {
       socket.off(socketName.REMOVEPLAYER, removePlayer);
       socket.off(socketName.GAME_END, gameEnd);
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
+      socket.off(socketName.SEND_TIMER, updateTimer);
     };
   }, [players]);
 
