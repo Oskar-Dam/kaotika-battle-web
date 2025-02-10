@@ -10,7 +10,7 @@ const KaotikaLegendsLogo: React.FC = () => {
 
   return (
     <div
-      className={`animate__animated ${animation} h-full w-full flex flex-col justify-center items-center backdrop-blur-sm`}
+      className={`animate__animated ${animation} h-full w-full flex flex-col justify-center items-center`}
       style={{ wordSpacing: '2rem' }}
       onAnimationEnd={handleAnimationEnd}>
       <div className='text-[2rem]'>

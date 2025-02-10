@@ -54,7 +54,7 @@ const InitAltScreen: React.FC<InitScreenInterface> = ({setAnimationFinished}) =>
 
         
         <div 
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 flex items-center justify-center transition-opacity backdrop-blur-lg duration-1000 ${
             showLogo ? 'opacity-100' : 'opacity-0'
           }`}
         >
