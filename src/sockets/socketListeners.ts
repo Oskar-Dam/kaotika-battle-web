@@ -41,7 +41,7 @@ export const useSocketListeners = () => {
     }
 
     function webSendUser(data: Player) {
-      console.log('enter in send user' + data);
+      console.log('enter in send user' + data.nickname);
       if (data.isBetrayer) {
         addDravocar(data);
       } else {

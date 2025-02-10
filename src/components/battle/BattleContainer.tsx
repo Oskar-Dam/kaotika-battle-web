@@ -8,18 +8,22 @@ const BattleContainer: React.FC = () => {
 
   return (
     <div className='w-full h-[55%] flex'>
-      {!attacker?.isBetrayer
-        ?
-        <PotionContainer />
-        :
-        <div className='w-1/12' />
-      }
-      <Battle />
-      {attacker?.isBetrayer
-        ?
-        <PotionContainer />
-        :
-        <div className='w-1/12' />
+      {attacker &&
+        <>
+          {!attacker?.isBetrayer
+            ?
+            <PotionContainer />
+            :
+            <div className='w-1/12' />
+          }
+          <Battle />
+          {attacker?.isBetrayer
+            ?
+            <PotionContainer />
+            :
+            <div className='w-1/12' />
+          }
+        </>
       }
       <DisconnectUser />
     </div>
