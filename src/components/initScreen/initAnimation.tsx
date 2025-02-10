@@ -1,20 +1,34 @@
 import { useEffect, useState } from 'react';
 import KaotikaLegendsLogo from './KaotikaLengedsLogo';
 import FireAnimation from './fire/initFire';
+import { motion } from 'framer-motion';
 
 interface InitScreenInterface {
   // eslint-disable-next-line no-unused-vars
   setAnimationFinished: (value: boolean) => void;
 }
 
+const warriorImages = [
+  '/images/warrior_1_1.png',
+  '/images/warrior_1_2.png',
+  '/images/warrior_1_3.png',
+  '/images/warrior_1_4.png',
+  '/images/warrior_2_1.png',
+  '/images/warrior_2_2.png',
+  '/images/warrior_2_3.png',
+  '/images/warrior_2_4.png',
+];
+
 const InitAltScreen: React.FC<InitScreenInterface> = ({setAnimationFinished}) => {
   const [fadeIn, setFadeIn] = useState(false);
   const [showLogo, setShowLogo] = useState(false);
   const [showMagicEffects, setShowMagicEffects] = useState(true);
+  const [showCharacters, setShowCharacters] = useState(true);
 
   useEffect(() => {
     const magicTimer = setTimeout(() => setShowMagicEffects(true), 3000);
     const fadeInTimer = setTimeout(() => setFadeIn(true), 100);
+    const CharactersTimer = setTimeout(() => setShowCharacters(false), 6000);
     const logoTimer = setTimeout(() => setShowLogo(true), 5000);
     const completionTimer = setTimeout(() => {
       setAnimationFinished(true);
@@ -23,6 +37,7 @@ const InitAltScreen: React.FC<InitScreenInterface> = ({setAnimationFinished}) =>
     return () => {
       clearTimeout(magicTimer);
       clearTimeout(fadeInTimer);
+      clearTimeout(CharactersTimer);
       clearTimeout(logoTimer);
       clearTimeout(completionTimer);
     };
@@ -36,6 +51,30 @@ const InitAltScreen: React.FC<InitScreenInterface> = ({setAnimationFinished}) =>
           {
             <FireAnimation/>
           }
+        </div>
+      )}
+
+      {showCharacters && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          {warriorImages.map((src, index) => (
+            <motion.img
+              key={index}
+              src={src}
+              className="absolute object-contain"
+              initial={{ opacity: 0, scale: 0.3, x: 0, y: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0.3, 1.8],
+                x: Math.random() > 0.5 ? 600 : -600,
+                y: Math.random() * 100 - 50
+              }}
+              transition={{
+                duration: 2,
+                delay: index * 0.5,
+                ease: 'easeInOut'
+              }}
+            />
+          ))}
         </div>
       )}
 
