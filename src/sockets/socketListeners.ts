@@ -8,9 +8,10 @@ import useStore from '../store/store';
 import { socketName } from './socketConstants';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
+  const [finishGame, setFinishGame] = useState<boolean>(false);
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
@@ -94,6 +95,14 @@ export const useSocketListeners = () => {
       setDisconnectedPlayer(nickName);
     }
 
+    function gameEnd(winner: string){
+      console.log('WINNER IS:');
+      console.log(winner);
+      setWinner(winner);
+      setFinishGame(true);
+    }
+
+    socket.on(socketName.GAME_END, gameEnd);
     function updateTimer(timer: number) {
       setTimer(timer);
     }
@@ -124,12 +133,12 @@ export const useSocketListeners = () => {
       socket.off(socketName.UPDATEPLAYER, updatePlayer);
       socket.off(socketName.ASSIGNTURN, assignTurn);
       socket.off(socketName.REMOVEPLAYER, removePlayer);
-      socket.off(socketName.GAME_END,);
+      socket.off(socketName.GAME_END, gameEnd);
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
       socket.off(socketName.SEND_TIMER, updateTimer);
     };
   }, [players]);
 
 
-  return { startBattle, finishTurn };
+  return { startBattle, finishTurn, finishGame };
 };

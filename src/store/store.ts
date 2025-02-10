@@ -24,6 +24,8 @@ const useStore = create<AppState>()((set) => ({
   setDisconnectedPlayer: (disconnectedPlayer: string) => set(() => ({ disconnectedPlayer: disconnectedPlayer })),
   finishTurn: false,
   setFinishTurn: (finishTurn: boolean) => set(() => ({ finishTurn: finishTurn })),
+  winner: '',
+  setWinner: (winner: string) => set(() => ({ winner: winner })),
 }));
 
 export default useStore;
