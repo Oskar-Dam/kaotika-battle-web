@@ -1,3 +1,4 @@
+import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -12,30 +13,29 @@ interface Props {
 }
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
-    
+  const {performingBarAnimation, setPerformingBarAnimation} = useStore();
   const [animation, setAnimation] = useState('animate__zoomInDown');
   const [value, setValue] = useState<number>(0);
-  const [perfomingAnimation, setPerforminAnimation] = useState<boolean>(true);
   useEffect(() => {
-    if (perfomingAnimation) {
+    if (performingBarAnimation) {
       let loopCount = 0;
       const interval = setInterval(() => {
         setValue((prevValue) => {
           if (prevValue === 100) {
             loopCount++;
-            if (loopCount >= 3) {
-              setPerforminAnimation(false);
-              clearInterval(interval);
-              return receivedValue;
-            }
             return 0;
+          }
+          if (loopCount >= 3 && prevValue === receivedValue) {
+            setPerformingBarAnimation(false);
+            clearInterval(interval);
+            return receivedValue;
           }
           return prevValue + 1;
         });
-      }, 10); // Adjust the interval time as needed
+      }, 10);
       return () => clearInterval(interval);
     }
-  }, [perfomingAnimation, receivedValue]);
+  }, [performingBarAnimation, receivedValue]);
 
   useEffect(() => {
     setAnimation('animate__pulse');
