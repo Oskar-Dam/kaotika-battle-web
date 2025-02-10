@@ -57,10 +57,7 @@ function App() {
           <Hud />
         </div>
       ) :
-        <div className={'flex flex-col overflow-hidden absolute inset-0 bg-center bg-cover justify-center items-center transition-opacity duration-2000 \'opacity-100\' : \'opacity-0\'}'}>
-          <WinnerText/>
-        </div>}
-
+        <WinnerText />}
     </>
   );
 }
