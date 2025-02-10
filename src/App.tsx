@@ -57,6 +57,8 @@ function App() {
           <Hud />
         </div>
       ) :
+
+      // Winner Component
         <WinnerText />}
     </>
   );
