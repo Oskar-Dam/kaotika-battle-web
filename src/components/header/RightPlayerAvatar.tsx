@@ -15,7 +15,7 @@ const RightPlayerAvatar: React.FC<RightPlayerAvatarInterface> = ({ player, isAtt
       <img
         src={defaultAvatar}
         alt='Player Avatar'
-        className='absolute h-[40%] w-[15%] object-cover z-0 rounded-[100%]' />
+        className='absolute h-[42%] object-cover z-10 rounded-[100%]' />
       {player && (
         <>
           {isAttacker &&
@@ -24,7 +24,7 @@ const RightPlayerAvatar: React.FC<RightPlayerAvatarInterface> = ({ player, isAtt
           <img
             src={player.avatar}
             alt='Player Avatar'
-            className={`h-full w-full object-cover z-0 rounded-[100%] animate__animated ${finishTurn && 'animate__fadeOut'} ${!finishTurn && 'animate__fadeIn'}`} />
+            className={`h-[80%] w-[80%] object-cover z-10 rounded-[100%] animate__animated ${finishTurn && 'animate__fadeOut'} ${!finishTurn && 'animate__fadeIn'}`} />
         </>
       )}
     </div>
