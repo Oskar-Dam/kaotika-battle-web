@@ -11,10 +11,6 @@ interface OpponentProps {
 
 const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   const [warriorPhoto, setWarriorPhoto] = useState<string>('');
-  const [isAttacking, setIsAtacking] = useState<boolean>(false);
-  useEffect(() => {
-    setIsAtacking(true);
-  }, []);
   useEffect(() => {
     if (player) {
       const warriorPhoto = getPhotoByLoyalty(player);
@@ -38,16 +34,16 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
         <>
           <div className='w-full h-[70%] flex justify-center items-center'>
             <div className='relative w-full h-[70%]'>
-              <div className='absolute top-[50%]  w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
+              <div className='absolute top-[100%]  w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
               <img
                 src={warriorPhoto}
                 className={`w-full object-cover ${styles}`}
               />
             </div>
             <div className='w-[30%] flex justify-center items-center'>
-              {isAttacking ? ( <PercentageBar
+              <PercentageBar
                 receivedValue={27}
-                chances={chanceMock.chances} /> ) : null}
+                chances={chanceMock.chances} />
             </div>
           </div>
         </>
