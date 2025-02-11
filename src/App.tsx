@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import BattleContainer from './components/battle/BattleContainer';
 import FinishTurn from './components/battle/finishTurn';
+import Meteors from './components/battle/Meteors';
 import WaitingBattle from './components/battle/WaitingBattle';
-import Hud from './components/footer/Hud';
+import Hud from './components/footer/HudAlt';
 import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
+import WinnerText from './components/winner/WinnerText';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleImage from '/images/battle_bg.webp';
-import Meteors from './components/battle/Meteors';
 
 function App() {
-  const { startBattle, finishTurn } = useSocketListeners();
+  const { startBattle, finishTurn, finishGame } = useSocketListeners();
   const [animationFinished, setAnimationFinished] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
@@ -36,24 +37,29 @@ function App() {
         </div>
       )}
 
-      <div
-        className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}
-        style={{ backgroundImage: `url(${battleImage})` }}>
-        {/* Header Container */}
-        {startBattle && <HeaderContainer />}
+      {!finishGame ? (
+        <div
+          className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}
+          style={{ backgroundImage: `url(${battleImage})` }}>
+          {/* Header Container */}
+          {startBattle && <HeaderContainer />}
 
-        {/* Meteors */}
-        <Meteors/>
+          {/* Meteors */}
+          <Meteors />
 
-        {/* Battle Container */}
-        {startBattle && <BattleContainer />}
-        {!startBattle && <WaitingBattle />}
+          {/* Battle Container */}
+          {startBattle && <BattleContainer />}
+          {!startBattle && <WaitingBattle />}
 
-        {finishTurn && startBattle && <FinishTurn />}
+          {finishTurn && startBattle && <FinishTurn />}
 
-        {/* Footer Container */}
-        <Hud />
-      </div>
+          {/* Footer Container */}
+          <Hud />
+        </div>
+      ) :
+
+      // Winner Component
+        <WinnerText />}
     </>
   );
 }

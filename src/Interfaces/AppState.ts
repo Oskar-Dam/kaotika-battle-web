@@ -19,4 +19,8 @@ export interface AppState {
   setTimer: (timer: number) => void;
   disconnectedPlayer: string,
   setDisconnectedPlayer: (disconnectedPlayer: string) => void;
+  finishTurn: boolean;
+  setFinishTurn: (finishTurn: boolean) => void;
+  winner: string,
+  setWinner: (winner: string) => void;
 }

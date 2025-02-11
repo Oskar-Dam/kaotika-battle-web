@@ -27,7 +27,7 @@ const HeaderContainer: React.FC = () => {
       <img
         src={borderImage}
         alt="Border Image"
-        className="absolute top-0 left-0 z-10 w-full"
+        className="absolute top-0 left-0 z-20 w-full"
       />
 
       {/* Left Player Avatar */}
