@@ -27,7 +27,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
 
       {warriorPhoto !== '' ? (
         <>
-          <div className='absolute bottom-[15%] w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
+          <div className='absolute bottom-[15%] w-[100%] h-[30%] rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
           <img
             src={warriorPhoto}
             className={`w-full object-cover ${styles}`}

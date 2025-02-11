@@ -26,6 +26,8 @@ const useStore = create<AppState>()((set) => ({
   setFinishTurn: (finishTurn: boolean) => set(() => ({ finishTurn: finishTurn })),
   winner: '',
   setWinner: (winner: string) => set(() => ({ winner: winner })),
+  changePlayer: false,
+  setChangePlayer: (changePlayer: boolean) => set(() => ({ changePlayer: changePlayer })),
 }));
 
 export default useStore;

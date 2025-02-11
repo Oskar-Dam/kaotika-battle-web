@@ -23,4 +23,6 @@ export interface AppState {
   setFinishTurn: (finishTurn: boolean) => void;
   winner: string,
   setWinner: (winner: string) => void;
+  changePlayer: boolean;
+  setChangePlayer: (changePlayer: boolean) => void;
 }
