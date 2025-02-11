@@ -14,7 +14,13 @@ interface Props {
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   const {performingBarAnimation, setPerformingBarAnimation} = useStore();
-  const [animation, setAnimation] = useState('animate__zoomInDown');
+  const randomInitAnimation = () => {
+    const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
+    const randomIndex = Math.floor(Math.random() * animations.length);
+    return animations[randomIndex];
+  };
+
+  const [animation, setAnimation] = useState(randomInitAnimation);
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
@@ -39,14 +45,6 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
       return () => clearInterval(interval);
     }
   }, [performingBarAnimation, receivedValue]);
-
-  useEffect(() => {
-    if (performingBarAnimation) {
-      const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
-      const randomIndex = Math.floor(Math.random() * animations.length);
-      setAnimation(animations[randomIndex]);
-    }
-  } , [performingBarAnimation]);
 
   useEffect(() => {
     if (value === receivedValue) {
