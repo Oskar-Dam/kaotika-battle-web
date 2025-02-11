@@ -82,7 +82,7 @@ const Meteors = () => {
               height: `${meteor.size}px`,
               opacity: meteorValue.OPACITY,
               transform: `${rotateValue}`,
-              backgroundImage: 'url(/images/meteors.png)',
+              backgroundImage: 'url(/images/meteor.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
