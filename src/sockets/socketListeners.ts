@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Player } from '../Interfaces/Player';
 import { PlayersRole } from '../Interfaces/PlayerRole';
+import { socketName } from '../constants/socketConstants';
 import getPlayerById from '../helpers/getPlayerById';
 import updatePlayerById from '../helpers/updatePlayerById';
 import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
-import { socketName } from './socketConstants';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const useSocketListeners = () => {
       setFinishTurn(true);
       setTimeout(() => {
         socket.emit('web-turnEnd');
-      }, 1000);
+      }, 700);
     };
   }, [timer]);
 
@@ -64,7 +64,11 @@ export const useSocketListeners = () => {
 
     function webSelectedPlayer(id: string) {
       console.log('enter in selected player');
-      setDefender(getPlayerById(players, id)!);
+      setChangePlayer(true);
+      setTimeout(() => {
+        setChangePlayer(false);
+        setDefender(getPlayerById(players, id)!);
+      }, 300);
     }
 
     function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
@@ -73,15 +77,17 @@ export const useSocketListeners = () => {
       setFinishTurn(true);
       setTimeout(() => {
         socket.emit('web-turnEnd');
-      }, 1000);
+      }, 700);
     }
 
     function assignTurn(id: string) {
       console.log('assign turn to next person');
-      setAttacker(getPlayerById(players, id)!);
       console.log('ATTACKER');
-      console.log(attacker?.name);
-      setFinishTurn(false);
+      console.log(attacker?.nickname);
+      setTimeout(() => {
+        setFinishTurn(false);
+        setAttacker(getPlayerById(players, id)!);
+      }, 700);
     }
 
     function removePlayer(id: string): void {
@@ -95,7 +101,7 @@ export const useSocketListeners = () => {
       setDisconnectedPlayer(nickName);
     }
 
-    function gameEnd(winner: string){
+    function gameEnd(winner: string) {
       console.log('WINNER IS:');
       console.log(winner);
       setWinner(winner);
