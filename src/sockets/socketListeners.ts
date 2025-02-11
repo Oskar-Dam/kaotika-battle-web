@@ -64,13 +64,11 @@ export const useSocketListeners = () => {
 
     function webSelectedPlayer(id: string) {
       console.log('enter in selected player');
-      if (!finishTurn) {
-        setChangePlayer(true);
-        setTimeout(() => {
-          setChangePlayer(false);
-        }, 300);
-      }
-      setDefender(getPlayerById(players, id)!);
+      setChangePlayer(true);
+      setTimeout(() => {
+        setChangePlayer(false);
+        setDefender(getPlayerById(players, id)!);
+      }, 300);
     }
 
     function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
@@ -103,7 +101,7 @@ export const useSocketListeners = () => {
       setDisconnectedPlayer(nickName);
     }
 
-    function gameEnd(winner: string){
+    function gameEnd(winner: string) {
       console.log('WINNER IS:');
       console.log(winner);
       setWinner(winner);
