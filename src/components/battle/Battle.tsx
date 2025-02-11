@@ -7,7 +7,6 @@ const Battle: React.FC = () => {
 
   useEffect(() => {
     if (attacker?.nickname === disconnectedPlayer){
-      console.log('ATTACKER PONER EN NULL');
       setAttacker(null);
     }
     if (defender?.nickname === disconnectedPlayer) {
