@@ -14,6 +14,8 @@ export const useSocketListeners = () => {
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
   const [swordSwing] = useSound('/sounds/swordSwing.mp3');
+  const [swap] = useSound('/sounds/swap.mp3');
+
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
@@ -70,6 +72,7 @@ export const useSocketListeners = () => {
       setTimeout(() => {
         setChangePlayer(false);
         setDefender(getPlayerById(players, id)!);
+        swap();
       }, 300);
     }
 
