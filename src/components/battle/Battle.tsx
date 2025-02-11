@@ -2,7 +2,15 @@ import useStore from '../../store/store';
 import Opponent from './Opponent';
 
 const Battle: React.FC = () => {
-  const { attacker, defender, changePlayer } = useStore();
+  const { attacker, defender, disconnectedPlayer, changePlayer, setAttacker, setDefender } = useStore();
+
+  if (attacker?.nickname === disconnectedPlayer){
+    setAttacker(null);
+  }
+
+  if (defender?.nickname === disconnectedPlayer) {
+    setDefender(null);
+  }
 
   return (
     <div className='w-10/12 flex justify-around items-center'>
