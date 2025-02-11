@@ -15,7 +15,7 @@ export const useSocketListeners = () => {
   const [finishGame, setFinishGame] = useState<boolean>(false);
   const [swordSwing] = useSound('/sounds/swordSwing.mp3');
   const [swap] = useSound('/sounds/swap.mp3');
-
+  const [pop] = useSound('/sounds/pop.mp3');
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
@@ -50,8 +50,10 @@ export const useSocketListeners = () => {
       if (data) {
         if (data.isBetrayer) {
           addDravocar(data);
+          pop();
         } else {
           addKaotika(data);
+          pop();
         }
       }
     }
