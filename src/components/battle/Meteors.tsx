@@ -1,3 +1,4 @@
+import { meteorValue } from '@/constants/meteorsContants';
 import { useEffect, useState } from 'react';
 
 type Meteor = {
@@ -9,18 +10,20 @@ type Meteor = {
   duration: number;
   size: number;
   progress: number;
+  isFromLeft: boolean
 };
 
 const Meteors = () => {
   const [meteors, setMeteors] = useState<Meteor[]>([]);
 
   const createMeteor = (): Meteor => {
-    const startX = Math.random() * window.innerWidth;
-    const startY = -20;
-    const endX = startX - 500;
-    const endY = window.innerHeight + 20;
-    const duration = 1000 + Math.random() * 2000;
-    const size = 2 + Math.random() * 4;
+    const isFromLeft = Math.random() > 0.5;
+    const startX = isFromLeft ? -meteorValue.SCREEN_PADDING : window.innerWidth;
+    const startY = Math.random() * meteorValue.START_Y;
+    const endX = isFromLeft ? window.innerWidth + meteorValue.END_X : -meteorValue.END_X;
+    const endY = window.innerHeight + meteorValue.END_Y;
+    const duration = meteorValue.DURATION;
+    const size = (meteorValue.MIN_SIZE + Math.random() * meteorValue.MAX_SIZE);
     const id = Date.now() + Math.random();
 
     return {
@@ -31,7 +34,8 @@ const Meteors = () => {
       endY,
       duration,
       size,
-      progress: 0
+      progress: 0,
+      isFromLeft
     };
   };
 
@@ -41,15 +45,15 @@ const Meteors = () => {
         const filtered = prev.filter(meteor => meteor.progress < 1);
         return [...filtered, createMeteor()];
       });
-    }, 300);
+    }, meteorValue.SPAWN_INTERVAL);
 
     const animationInterval = setInterval(() => {
       setMeteors(prev =>
         prev.map(meteor => ({
           ...meteor,
-          progress: meteor.progress + (16 / meteor.duration)
+          progress: meteor.progress + (meteorValue.ANIMATION_FRAME_INTERVAL / meteor.duration)
         })));
-    }, 16);
+    }, meteorValue.ANIMATION_FRAME_INTERVAL);
 
     return () => {
       clearInterval(spawnInterval);
@@ -61,7 +65,11 @@ const Meteors = () => {
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
       {meteors.map(meteor => {
         const currentX = meteor.startX + (meteor.endX - meteor.startX) * meteor.progress;
-        const currentY = meteor.startY + (meteor.endY - meteor.startY) * meteor.progress;
+
+        const rotateValue = meteor.isFromLeft ? `rotate(${meteorValue.LEFT_METEOR}deg)` : `rotate(${meteorValue.RIGHT_METEOR}deg)`;
+
+        const arcHeight = Math.sin(meteor.progress * Math.PI) * meteorValue.MAX_ARC_HEIGHT;
+        const currentY = meteor.startY - arcHeight;
 
         return (
           <div
@@ -70,11 +78,11 @@ const Meteors = () => {
             style={{
               left: `${currentX}px`,
               top: `${currentY}px`,
-              width: `${meteor.size * 20}px`,
-              height: `${meteor.size * 20}px`,
-              opacity: 1 - meteor.progress,
-              transform: 'rotate(-15deg)',
-              backgroundImage: 'url(/images/meteor.png)',
+              width: `${meteor.size}px`,
+              height: `${meteor.size}px`,
+              opacity: meteorValue.OPACITY,
+              transform: `${rotateValue}`,
+              backgroundImage: 'url(/images/meteors.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

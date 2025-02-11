@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import 'animate.css';
+import React, { useState } from 'react';
 
 const KaotikaLegendsLogo: React.FC = () => {
   const [animation, setAnimation] = useState('animate__zoomInDown');
@@ -10,10 +10,18 @@ const KaotikaLegendsLogo: React.FC = () => {
 
   return (
     <div
-      className={`animate__animated ${animation} text-[8rem] h-full w-full flex justify-center items-center backdrop-blur-xs`}
-      style={{ wordSpacing: '2rem', color: 'white' }}
+      className={`animate__animated ${animation} h-full w-full flex flex-col justify-center items-center`}
+      style={{ wordSpacing: '2rem' }}
       onAnimationEnd={handleAnimationEnd}>
-      LEGENDS OF KA<span style={{ color: 'orange' }}>O</span>TIKA
+      <div className='text-[2rem]'>
+        <h1 style={{ color: 'rgb(205, 168, 130)' }}>LEGENDS</h1>
+      </div>
+      <div className='text-[1rem]'>
+        <h1 style={{ color: 'rgb(205, 168, 130)' }}>of</h1>
+      </div>
+      <div className='text-[6rem]'>
+        <h1>KA<span style={{ color: 'orange' }}>O</span>TIKA</h1>
+      </div>
     </div>
   );
 };

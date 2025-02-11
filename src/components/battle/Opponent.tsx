@@ -1,3 +1,4 @@
+import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
 import { Player } from '../../Interfaces/Player';
 import { getPhotoByLoyalty } from '../../helpers/getPhotoByLoyalty';
@@ -10,16 +11,19 @@ interface OpponentProps {
 
 const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   const [warriorPhoto, setWarriorPhoto] = useState<string>('');
+  const { finishTurn } = useStore();
 
   useEffect(() => {
-    if (player !== null) {
+    if (player) {
       const warriorPhoto = getPhotoByLoyalty(player);
       setWarriorPhoto(warriorPhoto);
+    } else {
+      setWarriorPhoto('');
     }
   }, [player]);
 
   return (
-    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%]`}>
+    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>
 
       {warriorPhoto !== '' ? (
         <>

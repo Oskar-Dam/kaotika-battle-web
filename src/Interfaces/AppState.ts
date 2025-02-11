@@ -21,4 +21,6 @@ export interface AppState {
   setDisconnectedPlayer: (disconnectedPlayer: string) => void;
   finishTurn: boolean;
   setFinishTurn: (finishTurn: boolean) => void;
+  winner: string,
+  setWinner: (winner: string) => void;
 }
