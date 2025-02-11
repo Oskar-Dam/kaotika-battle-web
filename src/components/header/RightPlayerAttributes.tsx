@@ -13,7 +13,7 @@ const RightPlayerAttributes: React.FC<RightPlayerAttributesInterface> = ({ playe
     <div className="flex flex-col justify-items-start items-start h-[60%] w-[27%] mr-[2.5%] mt-[1.8%] rounded-md">
 
       {/* Right Player Life Bar */}
-      {player ? (
+      {player && !finishTurn ? (
         <RightPlayerLifeBar
           maxHitpoints={player.base_attributes.hit_points}
           hitpoints={player.attributes.hit_points} />

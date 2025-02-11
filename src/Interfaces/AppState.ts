@@ -23,4 +23,8 @@ export interface AppState {
   setFinishTurn: (finishTurn: boolean) => void;
   winner: string,
   setWinner: (winner: string) => void;
+  performingBarAnimation: boolean,
+  setPerformingBarAnimation: (performingBarAnimation: boolean) => void;
+  changePlayer: boolean;
+  setChangePlayer: (changePlayer: boolean) => void;
 }
