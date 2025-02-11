@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useSound from 'use-sound';
 import { Player } from '../Interfaces/Player';
 import { PlayersRole } from '../Interfaces/PlayerRole';
 import { socketName } from '../constants/socketConstants';
@@ -12,6 +13,9 @@ export const useSocketListeners = () => {
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
+  const [swordSwing] = useSound('/sounds/swordSwing.mp3');
+  const [swap] = useSound('/sounds/swap.mp3');
+  const [pop] = useSound('/sounds/pop.mp3');
 
   useEffect(() => {
     socket.emit('web-sendSocketId');
@@ -46,8 +50,10 @@ export const useSocketListeners = () => {
       if (data) {
         if (data.isBetrayer) {
           addDravocar(data);
+          pop();
         } else {
           addKaotika(data);
+          pop();
         }
       }
     }
@@ -68,6 +74,7 @@ export const useSocketListeners = () => {
       setTimeout(() => {
         setChangePlayer(false);
         setDefender(getPlayerById(players, id)!);
+        swap();
       }, 300);
     }
 
@@ -75,6 +82,7 @@ export const useSocketListeners = () => {
       console.log('daño: ' + totalDamage);
       setPlayers(updatePlayerById(players, id, attr));
       setFinishTurn(true);
+      swordSwing();
       setTimeout(() => {
         socket.emit('web-turnEnd');
       }, 700);
