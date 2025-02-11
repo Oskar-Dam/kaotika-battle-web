@@ -75,22 +75,26 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
           <div className={`animate__animated ${animation} w-[10%] h-[33vh] flex flex-col justify-end relative`}>
             <div className='absolute w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
             <div className='w-full h-full flex flex-col'>
+              <img 
+                src={'/images/percentage_bar_frame.webp'}
+                className="h-36"
+                alt="frame" />
               <div className='relative w-full h-full'>
                 <div
-                  className={'absolute bottom-0 bg-red-500 w-full'}
+                  className={'absolute bottom-0 bg-[#8B0000] w-full'} 
                   style={{ height: `${chances.fumble}%` }}>
                   <p>{receivedValue}</p>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-blue-500 w-full'}
+                  className={'absolute bottom-0 bg-[#4B0082] w-full'}  
                   style={{ height: `${chances.failed}%`, bottom: `${chances.fumble}%` }}>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-green-500 w-full'}
+                  className={'absolute bottom-0 bg-[#556B2F] w-full'} 
                   style={{ height: `${chances.normal}%`, bottom: `${chances.fumble + chances.failed}%` }}>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-yellow-500 w-full'}
+                  className={'absolute bottom-0 bg-[#FFD700] w-full'} 
                   style={{ height: `${chances.critical}%`, bottom: `${chances.fumble + chances.failed + chances.normal}%` }}>
                 </div>
                 <div

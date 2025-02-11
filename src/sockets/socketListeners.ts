@@ -114,6 +114,11 @@ export const useSocketListeners = () => {
       setFinishGame(true);
     }
 
+    function attackInfo(toDecide: number) {
+      console.log('ATTACK INFO');
+      console.log(toDecide);
+    }
+
     socket.on(socketName.GAME_END, gameEnd);
     function updateTimer(timer: number) {
       setTimer(timer);
@@ -131,6 +136,7 @@ export const useSocketListeners = () => {
     socket.on(socketName.REMOVEPLAYER, removePlayer);
     socket.on(socketName.PLAYERDISCONNECTED, playerDisconnected);
     socket.on(socketName.SEND_TIMER, updateTimer);
+    socket.on(socketName.ATTACK_INFO, attackInfo);
 
     console.log('PLAYERS');
     console.log(players);
@@ -148,6 +154,7 @@ export const useSocketListeners = () => {
       socket.off(socketName.GAME_END, gameEnd);
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
       socket.off(socketName.SEND_TIMER, updateTimer);
+      socket.off(socketName.ATTACK_INFO, attackInfo);
     };
   }, [players]);
 
