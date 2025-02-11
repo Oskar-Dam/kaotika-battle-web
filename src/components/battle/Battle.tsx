@@ -9,12 +9,12 @@ const Battle: React.FC = () => {
       <Opponent
         player={attacker?.isBetrayer ? defender! : attacker!}
         styles='transform scale-x-[1]'
-        styleClass={!defender?.isBetrayer ? `transform scale-x-[1] ${changePlayer && 'animate__fadeOut'} ${!changePlayer && 'animate__fadeIn'}` : 'transform scale-x-[1]'}>
+        styleClass={!defender?.isBetrayer && attacker?.isBetrayer || attacker?.isBetrayer ? `transform scale-x-[1] ${changePlayer && 'animate__fadeOut'} ${!changePlayer && 'animate__fadeIn'}` : 'transform scale-x-[1]'}>
       </Opponent>
       <Opponent
         player={attacker?.isBetrayer ? attacker! : defender!}
         styles='transform scale-x-[1]'
-        styleClass={defender?.isBetrayer ? `transform scale-x-[-1] ${changePlayer && 'animate__fadeOut'} ${!changePlayer && 'animate__fadeIn'}` : 'transform scale-x-[-1]'}>
+        styleClass={defender?.isBetrayer && !attacker?.isBetrayer || !attacker?.isBetrayer ? `transform scale-x-[-1] ${changePlayer && 'animate__fadeOut'} ${!changePlayer && 'animate__fadeIn'}` : 'transform scale-x-[-1]'}>
       </Opponent>
     </div>
   );
