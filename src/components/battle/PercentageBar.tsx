@@ -50,6 +50,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
 
   useEffect(() => {
     if (value === receivedValue) {
+      setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
       } , 3000);
@@ -57,6 +58,10 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
     }
   } , [value]);
 
+  useEffect(() => { 
+    console.log('animation', animation);
+  }, [animation]);
+  
   useEffect(() => {
     const triangle = document.getElementById('triangle');
     if (triangle) {
@@ -75,20 +80,20 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
               <div className='relative w-full h-full'>
                 <div
                   className={'absolute bottom-0 bg-red-500 w-full'}
-                  style={{ height: `${chances.critical}%` }}>
+                  style={{ height: `${chances.fumble}%` }}>
                   <p>{receivedValue}</p>
                 </div>
                 <div
                   className={'absolute bottom-0 bg-blue-500 w-full'}
-                  style={{ height: `${chances.normal}%`, bottom: `${chances.critical}%` }}>
+                  style={{ height: `${chances.failed}%`, bottom: `${chances.fumble}%` }}>
                 </div>
                 <div
                   className={'absolute bottom-0 bg-green-500 w-full'}
-                  style={{ height: `${chances.failed}%`, bottom: `${chances.critical + chances.normal}%` }}>
+                  style={{ height: `${chances.normal}%`, bottom: `${chances.fumble + chances.failed}%` }}>
                 </div>
                 <div
                   className={'absolute bottom-0 bg-yellow-500 w-full'}
-                  style={{ height: `${chances.fumble}%`, bottom: `${chances.critical + chances.normal + chances.failed}%` }}>
+                  style={{ height: `${chances.critical}%`, bottom: `${chances.fumble + chances.failed + chances.normal}%` }}>
                 </div>
                 <div
                   id='triangle'
