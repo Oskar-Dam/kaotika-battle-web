@@ -26,6 +26,10 @@ const useStore = create<AppState>()((set) => ({
   setFinishTurn: (finishTurn: boolean) => set(() => ({ finishTurn: finishTurn })),
   winner: '',
   setWinner: (winner: string) => set(() => ({ winner: winner })),
+  performingBarAnimation: false,
+  setPerformingBarAnimation: (performingBarAnimation: boolean) => set(() => ({ performingBarAnimation: performingBarAnimation })),
+  changePlayer: false,
+  setChangePlayer: (changePlayer: boolean) => set(() => ({ changePlayer: changePlayer })),
 }));
 
 export default useStore;
