@@ -6,6 +6,7 @@ import WaitingBattle from './components/battle/WaitingBattle';
 import Hud from './components/footer/HudAlt';
 import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
+import Message from './components/messages/Message';
 import WinnerText from './components/winner/WinnerText';
 import { useSocketListeners } from './sockets/socketListeners';
 import battleVideo from '/videos/battle_bg.mp4';
@@ -65,6 +66,7 @@ function App() {
         // Winner Component
         <WinnerText />
       }
+      <Message />
     </>
   );
 }
