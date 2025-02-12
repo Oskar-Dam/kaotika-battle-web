@@ -1,3 +1,5 @@
+import { inAnimations } from '@/constants/animations';
+import { randomAnimation } from '@/helpers/randomAnimation';
 import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
 
@@ -14,13 +16,8 @@ interface Props {
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   const {performingBarAnimation, setPerformingBarAnimation} = useStore();
-  const randomInitAnimation = () => {
-    const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
-    const randomIndex = Math.floor(Math.random() * animations.length);
-    return animations[randomIndex];
-  };
 
-  const [animation, setAnimation] = useState(randomInitAnimation);
+  const [animation, setAnimation] = useState(randomAnimation(inAnimations));
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
