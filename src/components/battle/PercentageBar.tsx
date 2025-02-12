@@ -14,11 +14,17 @@ interface Props {
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   const {performingBarAnimation, setPerformingBarAnimation} = useStore();
-  const [animation, setAnimation] = useState('animate__zoomInDown');
+  const randomInitAnimation = () => {
+    const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
+    const randomIndex = Math.floor(Math.random() * animations.length);
+    return animations[randomIndex];
+  };
+
+  const [animation, setAnimation] = useState(randomInitAnimation);
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
-    setPerformingBarAnimation(true);
+    setPerformingBarAnimation(false);
     console.log('performingBarAnimation', performingBarAnimation);
   }, [performingBarAnimation]);
   useEffect(() => {
@@ -41,15 +47,8 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   }, [performingBarAnimation, receivedValue]);
 
   useEffect(() => {
-    if (performingBarAnimation) {
-      const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
-      const randomIndex = Math.floor(Math.random() * animations.length);
-      setAnimation(animations[randomIndex]);
-    }
-  } , [performingBarAnimation]);
-
-  useEffect(() => {
     if (value === receivedValue) {
+      setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
       } , 3000);
@@ -57,6 +56,10 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
     }
   } , [value]);
 
+  useEffect(() => { 
+    console.log('animation', animation);
+  }, [animation]);
+  
   useEffect(() => {
     const triangle = document.getElementById('triangle');
     if (triangle) {
@@ -70,32 +73,45 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
       {performingBarAnimation ? (
         <>
           <div className={`animate__animated ${animation} w-[10%] h-[33vh] flex flex-col justify-end relative`}>
-            <div className='absolute w-full rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] h-[30%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
-            <div className='w-full h-full flex flex-col'>
+            <div className='absolute w-full bg-[rgba(0,_0,_0,_0.4)] h-[100%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
+            <div className='w-[150%] h-[99%] flex flex-col justify-end mx-auto'>
               <div className='relative w-full h-full'>
                 <div
-                  className={'absolute bottom-0 bg-red-500 w-full'}
-                  style={{ height: `${chances.critical}%` }}>
+                  className={'absolute bottom-0 bg-[#8B0000] w-full'} 
+                  style={{ height: `${chances.fumble}%` }}>
                   <p>{receivedValue}</p>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-blue-500 w-full'}
-                  style={{ height: `${chances.normal}%`, bottom: `${chances.critical}%` }}>
+                  className={'absolute bottom-0 bg-[#4B0082] w-full'}  
+                  style={{ height: `${chances.failed}%`, bottom: `${chances.fumble}%` }}>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-green-500 w-full'}
-                  style={{ height: `${chances.failed}%`, bottom: `${chances.critical + chances.normal}%` }}>
+                  className={'absolute bottom-0 bg-[#556B2F] w-full'} 
+                  style={{ height: `${chances.normal}%`, bottom: `${chances.fumble + chances.failed}%` }}>
                 </div>
                 <div
-                  className={'absolute bottom-0 bg-yellow-500 w-full'}
-                  style={{ height: `${chances.fumble}%`, bottom: `${chances.critical + chances.normal + chances.failed}%` }}>
+                  className={'absolute bottom-0 bg-[#FFD700] w-full'} 
+                  style={{ height: `${chances.critical}%`, bottom: `${chances.fumble + chances.failed + chances.normal}%` }}>
                 </div>
                 <div
                   id='triangle'
-                  className='mb-[-10px] absolute left-full w-0 h-0 border-t-[10px] border-t-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-transparent border-r-[10px] border-r-white'
+                  className=' w-[100%] h-[30px] absolute bottom-0 mb-[-15px] ml-[100%] rotate-90 z-10'
                   style={{ bottom: `${value}%` }}
-                />
+                >
+                  <img 
+                    src={'/images/skull_pointer.webp'}
+                    className="w-full h-full object-cover"
+                    alt="frame"
+                  />
+                </div>
               </div>
+            </div>
+            <div className="absolute w-[60px] h-[110%] mb-[-160%] ml-[-100%]">
+              <img 
+                src={'/images/percentage_bar_frame.webp'}
+                className="w-full h-full object-cover"
+                alt="frame"
+              />
             </div>
           </div>
         </>

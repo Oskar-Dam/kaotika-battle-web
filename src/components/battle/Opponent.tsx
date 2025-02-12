@@ -25,11 +25,12 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
 
   const chanceMock = {
     chances: {  
-      critical: 10,
+      critical: 30,
       fumble: 20,
-      normal: 30,
-      failed: 40,
-    }
+      normal: 40,
+      failed: 10,
+    },
+    receivedValue: 20,
   };
   return (
     <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>
@@ -45,7 +46,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
             </div>
             <div className='w-[30%] flex justify-center items-center'>
               <PercentageBar
-                receivedValue={27}
+                receivedValue={chanceMock.receivedValue}
                 chances={chanceMock.chances} />
             </div>
           </div>
