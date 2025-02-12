@@ -42,7 +42,7 @@ function App() {
 
           {/* Background video */}
           <video
-            className='w-full'
+            className='w-full absolute'
             loop
             autoPlay
             muted>
