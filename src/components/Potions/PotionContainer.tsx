@@ -7,7 +7,7 @@ const PotionContainer: React.FC = () => {
   const { attacker, finishTurn } = useStore();
   const betrayer = attacker?.isBetrayer;
 
-  const attackerPotions = attacker ? Object.entries(attacker.equipment).filter(([key]) => key !== 'weapon'): [];
+  const attackerPotions = attacker ? Object.entries(attacker.equipment).filter(([key]) => key.includes('potion')) : [];
 
   return (
     <>

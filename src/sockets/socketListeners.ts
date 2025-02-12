@@ -101,6 +101,10 @@ export const useSocketListeners = () => {
     function removePlayer(id: string): void {
       console.log('remove player with the id ' + id);
       setPlayers(deletePlayerById(players, id));
+      setTimeout(() => {
+        setFinishTurn(true);
+        socket.emit('web-turnEnd');
+      }, 1500);
     }
 
     function playerDisconnected(nickName: string) {
