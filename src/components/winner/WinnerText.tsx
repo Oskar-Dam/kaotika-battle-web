@@ -9,7 +9,7 @@ const WinnerText: React.FC = () => {
   return (
     <div
       className={'flex flex-col overflow-hidden absolute inset-0 bg-center bg-cover justify-center items-center animate__animated animate__fadeIn animate__slower'}
-      style={{ backgroundImage: `url(${winner === 'Kaotika' ? (kaotikaWinner): dravokarWinner})` }}>
+      style={{ backgroundImage: `url(${winner === 'kaotika' ? (kaotikaWinner): dravokarWinner})` }}>
       <div className='flex h-[20%] w-[60%] justify-center items-center animate__animated animate__fadeInDown animate__slower'>
         <p className='text-9xl w-full'>The winner is {winner} !!!</p>
       </div>
