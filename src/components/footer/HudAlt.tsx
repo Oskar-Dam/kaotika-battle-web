@@ -7,26 +7,26 @@ const Hud: React.FC = () => {
 
   return (
     <div>
-      {/* HUD */}
-      <div className="fixed overflow-x-hidden bottom-1 left-1/2 transform -translate-x-1/2 w-[102%] h-[23%] bg-[url('/images/hud-background.webp')] bg-cover bg-center shadow-lg p-4 flex items-stretch justify-between">
+      <div className="fixed overflow-x-hidden bottom-1 left-1/2 transform -translate-x-1/2 w-[102%] h-[23%] bg-[url('/images/hud-background.webp')] bg-cover bg-center shadow-lg p-2 flex items-stretch justify-between">
         
         {/* Kaotika Team */}
-        <div className="flex flex-col items-center justify-start w-[46%]  p-2">
+        <div className="flex flex-col items-center justify-start w-[50%]">
           <img
             src={'/images/kaotika.webp'}
             className="w-48 mb-1" />
-          <div className="flex flex-wrap justify-center h-full overflow-y-auto">
+          <div className="flex flex-wrap justify-center content-start h-full overflow-y-auto scrollbar-hide">
             {players?.kaotika.map((player, index) => (
               <div
                 key={index}
-                className="m-1">
+                className="m-0.5">
                 <PlayerAvatar player={player} />
               </div>
             ))}
           </div>
         </div>
+
         {/* Divider Image */}
-        <div className="flex items-center justify-center w-[5%] px-2">
+        <div className="flex items-center justify-center w-[2%]">
           <img
             src={'/images/left_separator.webp'}
             className="h-36"
@@ -34,13 +34,14 @@ const Hud: React.FC = () => {
         </div>
 
         {/* VS Section */}
-        <div className="flex items-center justify-center w-[8%]  px-4">
+        <div className="flex items-center justify-center w-[3%]">
           <img
             src={'/images/vs.webp'}
-            className="w-16" />
+            className="w-11" />
         </div>
+
         {/* Divider Image */}
-        <div className="flex items-center justify-center w-[5%] px-2">
+        <div className="flex items-center justify-center w-[2%]">
           <img
             src={'/images/right_separator.webp'}
             className="h-36"
@@ -48,15 +49,15 @@ const Hud: React.FC = () => {
         </div>
 
         {/* Dravocar Team */}
-        <div className="flex flex-col items-center justify-start w-[46%] p-2">
+        <div className="flex flex-col items-center justify-start w-[50%] p-1">
           <img
             src={'/images/dravocar.webp'}
             className="w-48 mb-1" />
-          <div className="flex flex-wrap justify-center h-full overflow-y-auto">
+          <div className="flex flex-wrap justify-center content-start h-full overflow-y-auto scrollbar-hide">
             {players?.dravocar.map((player, index) => (
               <div
                 key={index}
-                className="m-1">
+                className="m-0.5">
                 <PlayerAvatar player={player} />
               </div>
             ))}
