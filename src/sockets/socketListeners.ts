@@ -79,13 +79,14 @@ export const useSocketListeners = () => {
     }
 
     function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
+      console.log('UPDATE PLAYER SOCKET RECEIVED');
       console.log('daño: ' + totalDamage);
       setPlayers(updatePlayerById(players, id, attr));
-      setFinishTurn(true);
       swordSwing();
+      setFinishTurn(true);
       setTimeout(() => {
         socket.emit('web-turnEnd');
-      }, 700);
+      }, 1500);
     }
 
     function assignTurn(id: string) {
