@@ -30,7 +30,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
       normal: 40,
       failed: 10,
     },
-    receivedValue: 53,
+    receivedValue: 20,
   };
   return (
     <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>

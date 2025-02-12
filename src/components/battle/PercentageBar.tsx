@@ -95,9 +95,15 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
                 </div>
                 <div
                   id='triangle'
-                  className='ml-[40%] mb-[-10px] absolute left-full w-0 h-0 border-t-[10px] border-t-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-transparent border-r-[10px] border-r-white'
+                  className=' w-[100%] h-[30px] absolute bottom-0 mb-[-15px] ml-[100%] rotate-90 z-10'
                   style={{ bottom: `${value}%` }}
-                />
+                >
+                  <img 
+                    src={'/images/skull_pointer.webp'}
+                    className="w-full h-full object-cover"
+                    alt="frame"
+                  />
+                </div>
               </div>
             </div>
             <div className="absolute w-[60px] h-[110%] mb-[-160%] ml-[-100%]">
