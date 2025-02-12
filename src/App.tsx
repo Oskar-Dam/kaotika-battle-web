@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import BattleContainer from './components/battle/BattleContainer';
 import FinishTurn from './components/battle/finishTurn';
-import Meteors from './components/battle/Meteors';
 import WaitingBattle from './components/battle/WaitingBattle';
 import Hud from './components/footer/HudAlt';
 import HeaderContainer from './components/header/HeaderContainer';
 import InitAltScreen from './components/initScreen/initAnimation';
 import WinnerText from './components/winner/WinnerText';
 import { useSocketListeners } from './sockets/socketListeners';
-import battleImage from '/images/battle_bg.webp';
+import battleVideo from '/videos/battle_bg.mp4';
 
 function App() {
   const { startBattle, finishTurn, finishGame } = useSocketListeners();
@@ -39,13 +38,19 @@ function App() {
 
       {!finishGame ? (
         <div
-          className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}
-          style={{ backgroundImage: `url(${battleImage})` }}>
+          className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}>
+
+          {/* Background video */}
+          <video
+            className='w-full absolute'
+            loop
+            autoPlay
+            muted>
+            <source src={battleVideo}></source>
+          </video>
+
           {/* Header Container */}
           {startBattle && <HeaderContainer />}
-
-          {/* Meteors */}
-          <Meteors />
 
           {/* Battle Container */}
           {startBattle && <BattleContainer />}
@@ -55,11 +60,11 @@ function App() {
 
           {/* Footer Container */}
           <Hud />
-        </div>
+        </div >
       ) :
-
-      // Winner Component
-        <WinnerText />}
+        // Winner Component
+        <WinnerText />
+      }
     </>
   );
 }
