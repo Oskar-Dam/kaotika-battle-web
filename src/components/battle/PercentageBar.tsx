@@ -24,7 +24,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
-    setPerformingBarAnimation(false);
+    setPerformingBarAnimation(true);
     console.log('performingBarAnimation', performingBarAnimation);
   }, [performingBarAnimation]);
   useEffect(() => {
@@ -32,14 +32,14 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
       let loops = 0;
       const interval = setInterval(() => {
         setValue((prevValue) => {
-          if (prevValue === 100) {
+          if (prevValue === 101) {
             loops++;            
             return 0;
           }
           if (loops === 2) {
             return receivedValue;
           }
-          return 100;
+          return 101;
         });
       }, 500);
       return () => clearInterval(interval);
