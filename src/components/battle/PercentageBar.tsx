@@ -24,7 +24,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
-    setPerformingBarAnimation(true);
+    setPerformingBarAnimation(false);
     console.log('performingBarAnimation', performingBarAnimation);
   }, [performingBarAnimation]);
   useEffect(() => {
