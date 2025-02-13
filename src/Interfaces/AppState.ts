@@ -29,4 +29,10 @@ export interface AppState {
   setChangePlayer: (changePlayer: boolean) => void;
   attackAnimation: boolean;
   setAttackAnimation: (attackAnimation: boolean) => void;
+  message: string,
+  setMessage: (message: string) => void;
+  rollMessage: string,
+  setRollMessage: (rollMessage: string) => void;
+  battleMessage: string,
+  setBattleMessage: (battleMessage: string) => void;
 }

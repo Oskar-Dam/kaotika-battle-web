@@ -14,7 +14,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   const [warrior, setWarrior] = useState({idle: '', attack: ''});
   const { finishTurn, attackAnimation } = useStore();
 
-  useEffect(() => {
+  useEffect(() => {    
     if (player) {
       const warrior = getPhotoByLoyalty(player);
       setWarrior(warrior);
@@ -30,7 +30,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
       normal: 40,
       failed: 10,
     },
-    receivedValue: 100,
+    receivedValue: 0,
   };
   return (
     <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>
@@ -47,7 +47,8 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
             <div className='w-[30%] flex justify-center items-center'>
               <PercentageBar
                 receivedValue={chanceMock.receivedValue}
-                chances={chanceMock.chances} />
+                chances={chanceMock.chances}
+                player={player} />
             </div>
           </div>
         </>

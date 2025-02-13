@@ -83,7 +83,7 @@ export const useSocketListeners = () => {
 
     function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
-      console.log(attackInfo);
+      console.log(attackInfo.attack.targetPlayerId);
       setAttackAnimation(true);
       swordSwing();
       setTimeout(() => {
