@@ -5,7 +5,6 @@ import { Player } from '../Interfaces/Player';
 import { PlayersRole } from '../Interfaces/PlayerRole';
 import { socketName } from '../constants/socketConstants';
 import getPlayerById from '../helpers/getPlayerById';
-import updatePlayerById from '../helpers/updatePlayerById';
 import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
@@ -79,10 +78,12 @@ export const useSocketListeners = () => {
       }, timeConstant.SELECTED_PLAYER);
     }
 
-    function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
+    function attackInfo(attackInfo: object) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
-      console.log('daño: ' + totalDamage);
-      setPlayers(updatePlayerById(players, id, attr));
+      console.log(attackInfo);
+
+      // console.log('daño: ' + totalDamage);
+      // setPlayers(updatePlayerById(players, id, attr));
       swordSwing();
       setFinishTurn(true);
       setTimeout(() => {
@@ -122,11 +123,6 @@ export const useSocketListeners = () => {
       setFinishGame(true);
     }
 
-    function attackInfo(toDecide: number) {
-      console.log('ATTACK INFO');
-      console.log(toDecide);
-    }
-
     socket.on(socketName.GAME_END, gameEnd);
     function updateTimer(timer: number) {
       setTimer(timer);
@@ -139,12 +135,11 @@ export const useSocketListeners = () => {
     socket.on(socketName.CONNECTEDUSERS, connectedUsers);
     socket.on(socketName.GAMESTART, gameStart);
     socket.on(socketName.WEBSELECTEDPLAYER, webSelectedPlayer);
-    socket.on(socketName.UPDATEPLAYER, updatePlayer);
+    socket.on(socketName.ATTACK_INFO, attackInfo);
     socket.on(socketName.ASSIGNTURN, assignTurn);
     socket.on(socketName.REMOVEPLAYER, removePlayer);
     socket.on(socketName.PLAYERDISCONNECTED, playerDisconnected);
     socket.on(socketName.SEND_TIMER, updateTimer);
-    socket.on(socketName.ATTACK_INFO, attackInfo);
 
     console.log('PLAYERS');
     console.log(players);
@@ -156,13 +151,12 @@ export const useSocketListeners = () => {
       socket.off(socketName.CONNECTEDUSERS, connectedUsers);
       socket.off(socketName.GAMESTART, gameStart);
       socket.off(socketName.WEBSELECTEDPLAYER, webSelectedPlayer);
-      socket.off(socketName.UPDATEPLAYER, updatePlayer);
+      socket.off(socketName.ATTACK_INFO, attackInfo);
       socket.off(socketName.ASSIGNTURN, assignTurn);
       socket.off(socketName.REMOVEPLAYER, removePlayer);
       socket.off(socketName.GAME_END, gameEnd);
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
       socket.off(socketName.SEND_TIMER, updateTimer);
-      socket.off(socketName.ATTACK_INFO, attackInfo);
     };
   }, [players]);
 
