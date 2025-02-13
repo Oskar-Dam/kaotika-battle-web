@@ -1,28 +1,24 @@
 import { outAnimations } from '@/constants/animations';
-import { messages } from '@/constants/messages';
 import { randomAnimation } from '@/helpers/randomAnimation';
-import { randomMessage } from '@/helpers/randomMessage';
 import useStore from '@/store/store';
 import 'animate.css';
 import React, { useEffect, useState } from 'react';
 
 const Message: React.FC = () => {
   
-  const { message, setMessage } = useStore();
+  const { message } = useStore();
   const [animation, setAnimation] = useState(randomAnimation(outAnimations));
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     console.log('Message: ', message);
     console.log('Animation: ', animation);
-    setMessage(randomMessage(messages));
   }, [message, animation]);
 
   useEffect(() => {
     if (message) {
       setIsVisible(true);
       setAnimation(randomAnimation(outAnimations));
-      setMessage(randomMessage(messages));
       const timer = setTimeout(() => {
         setIsVisible(false);
       }, 4000);
