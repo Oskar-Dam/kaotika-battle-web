@@ -4,12 +4,11 @@ export const socketName = {
   GAMESTART: 'gameStart',
   CONNECTEDUSERS: 'connectedUsers',
   WEBSELECTEDPLAYER: 'web-setSelectedPlayer',
-  UPDATEPLAYER: 'updatePlayer',
+  ATTACK_INFO: 'web-attackInformation',
   ASSIGNTURN: 'assign-turn',
   REMOVEPLAYER: 'removePlayer',
   WEBSENDUSER: 'web-sendUser',
   PLAYERDISCONNECTED: 'web-playerDisconnected',
   GAME_END: 'gameEnd',
   SEND_TIMER: 'send-timer',
-  ATTACK_INFO: 'web-attackInformation',
 };
