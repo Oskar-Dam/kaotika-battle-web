@@ -14,7 +14,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   const [warriorPhoto, setWarriorPhoto] = useState<string>('');
   const { finishTurn } = useStore();
 
-  useEffect(() => {
+  useEffect(() => {    
     if (player) {
       const warriorPhoto = getPhotoByLoyalty(player);
       setWarriorPhoto(warriorPhoto);
@@ -47,7 +47,8 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
             <div className='w-[30%] flex justify-center items-center'>
               <PercentageBar
                 receivedValue={chanceMock.receivedValue}
-                chances={chanceMock.chances} />
+                chances={chanceMock.chances}
+                player={player} />
             </div>
           </div>
         </>
