@@ -10,7 +10,7 @@ import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravokar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
+  const { players, socket, setPlayers, setDefender, defender, timer, setTimer, setAttacker, addDravokar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -19,8 +19,8 @@ export const useSocketListeners = () => {
   const [pop] = useSound('/sounds/pop.mp3');
 
   useEffect(() => {
-    socket.emit('web-sendSocketId');
-    socket.emit('web-sendUsers');
+    socket.emit(socketName.SEND_SOCKETID);
+    socket.emit(socketName.SEND_USERS);
   }, []);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const useSocketListeners = () => {
       console.log('SEND TURN END SOCKET');
       setFinishTurn(true);
       setTimeout(() => {
-        socket.emit('web-turnEnd');
+        socket.emit(socketName.TURN_END);
       }, timeConstant.TURN_END);
     };
   }, [timer]);
@@ -90,7 +90,8 @@ export const useSocketListeners = () => {
         setAttackAnimation(false);
         setFinishTurn(true);
         setTimeout(() => {
-          socket.emit('web-turnEnd');
+          socket.emit(socketName.TARGET_VALUE, {defender: defender?._id, attacker: attacker?._id});
+          socket.emit(socketName.TURN_END);
         }, timeConstant.TURN_END);
       }, timeConstant.ATTACK_END);
     }
@@ -113,7 +114,7 @@ export const useSocketListeners = () => {
       setPlayers(deletePlayerById(players, id));
       setTimeout(() => {
         setFinishTurn(true);
-        socket.emit('web-turnEnd');
+        socket.emit(socketName.TURN_END);
       }, timeConstant.REMOVE_PLAYER);
     }
 
@@ -165,7 +166,7 @@ export const useSocketListeners = () => {
       socket.off(socketName.PLAYERDISCONNECTED, playerDisconnected);
       socket.off(socketName.SEND_TIMER, updateTimer);
     };
-  }, [players]);
+  }, [players, attacker, defender]);
 
 
   return { startBattle, finishTurn, finishGame };

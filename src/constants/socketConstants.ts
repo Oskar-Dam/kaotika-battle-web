@@ -11,4 +11,8 @@ export const socketName = {
   PLAYERDISCONNECTED: 'web-playerDisconnected',
   GAME_END: 'gameEnd',
   SEND_TIMER: 'send-timer',
+  TURN_END: 'web-turnEnd',
+  SEND_SOCKETID: 'web-sendSocketId',
+  SEND_USERS: 'web-sendUsers',
+  TARGET_VALUE: 'web-targetPlayer'
 };
