@@ -7,9 +7,9 @@ import { PlayersRole } from '../Interfaces/PlayerRole';
 
 const useStore = create<AppState>()((set) => ({
 
-  players: { dravocar: [], kaotika: [] },
+  players: { dravokar: [], kaotika: [] },
   addKaotika: (kaotika: Player) => set((state) => ({ players: { ...state.players, kaotika: [...state.players.kaotika, kaotika] } })),
-  addDravocar: (dravocar: Player) => set((state) => ({ players: { ...state.players, dravocar: [...state.players.dravocar, dravocar] } })),
+  addDravokar: (dravokar: Player) => set((state) => ({ players: { ...state.players, dravokar: [...state.players.dravokar, dravokar] } })),
   socket: io(import.meta.env.VITE_SERVER_URL as string),
   round: 1,
   addRound: (by: number) => set((state) => ({ round: state.round += by })),

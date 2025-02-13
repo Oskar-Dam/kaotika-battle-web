@@ -1,6 +1,6 @@
 import { Player } from './Player';
 
 export interface PlayersRole {
-    dravocar: Player[];
+    dravokar: Player[];
     kaotika: Player[];
 }

@@ -17,7 +17,7 @@ const InitAltScreen: React.FC<InitScreenInterface> = ({ setAnimationFinished }) 
 
   const videos = [
     '/videos/swamp.webm',
-    '/videos/dravocar.webm',
+    '/videos/dravokar.webm',
     '/videos/acolytes_marching.webm',
     '/videos/final_battle.mp4'
   ];
