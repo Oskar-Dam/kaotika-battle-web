@@ -8,7 +8,7 @@ interface OpponentProps {
   player: Player;
   styles?: string;
   styleClass: string;
-  isAttacker: boolean;
+  warriorAnimation: boolean;
 }
 
 interface Warrior {
@@ -16,9 +16,9 @@ interface Warrior {
   attack: string;
 }
 
-const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass, isAttacker }) => {
+const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass, warriorAnimation }) => {
   const [warrior, setWarrior] = useState<Warrior>({idle: '', attack: ''});
-  const { finishTurn, attackAnimation } = useStore();
+  const { finishTurn } = useStore();
 
   useEffect(() => {
     if (player) {
@@ -46,7 +46,7 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass, isAttac
             <div className='relative w-full h-[70%]'>
               <div className='absolute top-[100%]  w-[100%] h-[30%] rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
               <img
-                src={attackAnimation && isAttacker ? warrior.attack : warrior.idle}
+                src={warriorAnimation ? warrior.attack : warrior.idle}
                 className={`w-full object-cover ${styles}`}
               />
             </div>

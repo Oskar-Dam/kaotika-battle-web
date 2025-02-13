@@ -3,7 +3,7 @@ import useStore from '../../store/store';
 import Opponent from './Opponent';
 
 const Battle: React.FC = () => {
-  const { attacker, defender, disconnectedPlayer, changeRightPlayerAnimation, changeLeftPlayerAnimation, setAttacker, setDefender, attackAnimation } = useStore();
+  const { attacker, defender, disconnectedPlayer, changeRightPlayerAnimation, changeLeftPlayerAnimation, setAttacker, setDefender, attackRightPlayerAnimation, attackLeftPlayerAnimation } = useStore();
 
   useEffect(() => {
     if (attacker?.nickname === disconnectedPlayer){
@@ -19,14 +19,14 @@ const Battle: React.FC = () => {
       <Opponent
         player={attacker?.isBetrayer ? defender! : attacker!}
         styles='transform scale-x-[1]'
-        styleClass={!attackAnimation && attacker?.isBetrayer ? `transform scale-x-[1] ${changeLeftPlayerAnimation ? 'animate__fadeOut' : 'animate__fadeIn'}` : 'transform scale-x-[1]'}
-        isAttacker={attacker?.isBetrayer ? false! : true!}>
+        styleClass={!attackLeftPlayerAnimation && attacker?.isBetrayer ? `transform scale-x-[1] ${changeLeftPlayerAnimation ? 'animate__fadeOut' : 'animate__fadeIn'}` : 'transform scale-x-[1]'}
+        warriorAnimation={attackLeftPlayerAnimation}>
       </Opponent>
       <Opponent
         player={attacker?.isBetrayer ? attacker! : defender!}
         styles='transform scale-x-[1]'
-        styleClass={!attackAnimation && !attacker?.isBetrayer ? `transform scale-x-[-1] ${changeRightPlayerAnimation ? 'animate__fadeOut' : 'animate__fadeIn'}` : 'transform scale-x-[-1]'}
-        isAttacker={attacker?.isBetrayer ? false! : true!}>
+        styleClass={!attackRightPlayerAnimation && !attacker?.isBetrayer ? `transform scale-x-[-1] ${changeRightPlayerAnimation ? 'animate__fadeOut' : 'animate__fadeIn'}` : 'transform scale-x-[-1]'}
+        warriorAnimation={attackRightPlayerAnimation}>
       </Opponent>
     </div>
   );

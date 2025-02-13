@@ -10,7 +10,7 @@ import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, defender, timer, setTimer, setAttacker, addDravokar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangeRightPlayerAnimation, setChangeLeftPlayerAnimation, setAttackAnimation } = useStore();
+  const { players, socket, setPlayers, setDefender, defender, timer, setTimer, setAttacker, addDravokar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangeRightPlayerAnimation, setChangeLeftPlayerAnimation, setAttackRightPlayerAnimation, setAttackLeftPlayerAnimation } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -91,10 +91,18 @@ export const useSocketListeners = () => {
     function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       console.log(attackInfo);
-      setAttackAnimation(true);
+      if (attacker?.isBetrayer){
+        setAttackRightPlayerAnimation(true);
+      } else {
+        setAttackLeftPlayerAnimation(true);
+      }
       swordSwing();
       setTimeout(() => {
-        setAttackAnimation(false);
+        if (attacker?.isBetrayer){
+          setAttackRightPlayerAnimation(false);
+        } else {
+          setAttackLeftPlayerAnimation(false);
+        }
         setFinishTurn(true);
         setTimeout(() => {
           socket.emit(socketName.TARGET_VALUE, {defender: defender?._id, attacker: attacker?._id});

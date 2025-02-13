@@ -29,6 +29,8 @@ export interface AppState {
   setChangeRightPlayerAnimation: (changePlayer: boolean) => void;
   changeLeftPlayerAnimation: boolean;
   setChangeLeftPlayerAnimation: (changePlayer: boolean) => void;
-  attackAnimation: boolean;
-  setAttackAnimation: (attackAnimation: boolean) => void;
+  attackRightPlayerAnimation: boolean;
+  setAttackRightPlayerAnimation: (attackAnimation: boolean) => void;
+  attackLeftPlayerAnimation: boolean;
+  setAttackLeftPlayerAnimation: (attackAnimation: boolean) => void;
 }

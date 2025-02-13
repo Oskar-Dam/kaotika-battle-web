@@ -32,8 +32,10 @@ const useStore = create<AppState>()((set) => ({
   setChangeRightPlayerAnimation: (changeRightPlayerAnimation: boolean) => set(() => ({ changeRightPlayerAnimation: changeRightPlayerAnimation })),
   changeLeftPlayerAnimation: false,
   setChangeLeftPlayerAnimation: (changeLeftPlayerAnimation: boolean) => set(() => ({ changeLeftPlayerAnimation: changeLeftPlayerAnimation })),
-  attackAnimation: false,
-  setAttackAnimation: (attackAnimation: boolean) => set(() => ({ attackAnimation: attackAnimation })),
+  attackRightPlayerAnimation: false,
+  setAttackRightPlayerAnimation: (attackRightPlayerAnimation: boolean) => set(() => ({ attackRightPlayerAnimation: attackRightPlayerAnimation })),
+  attackLeftPlayerAnimation: false,
+  setAttackLeftPlayerAnimation: (attackLeftPlayerAnimation: boolean) => set(() => ({ attackLeftPlayerAnimation: attackLeftPlayerAnimation })),
 }));
 
 export default useStore;
