@@ -10,7 +10,7 @@ import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -74,7 +74,9 @@ export const useSocketListeners = () => {
       setChangePlayer(true);
       setTimeout(() => {
         setChangePlayer(false);
-        setDefender(getPlayerById(players, id)!);
+        const selectedPlayer = getPlayerById(players, id);
+        selectedPlayer!.isAttacker = false;
+        setDefender(selectedPlayer!);
         swap();
       }, timeConstant.SELECTED_PLAYER);
     }
@@ -83,10 +85,14 @@ export const useSocketListeners = () => {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       console.log('daño: ' + totalDamage);
       setPlayers(updatePlayerById(players, id, attr));
+      setAttackAnimation(true);
       swordSwing();
-      setFinishTurn(true);
       setTimeout(() => {
-        socket.emit('web-turnEnd');
+        setAttackAnimation(false);
+        setFinishTurn(true);
+        setTimeout(() => {
+          socket.emit('web-turnEnd');
+        }, timeConstant.TURN_END);
       }, timeConstant.ATTACK_END);
     }
 
@@ -96,7 +102,10 @@ export const useSocketListeners = () => {
       console.log(attacker?.nickname);
       setTimeout(() => {
         setFinishTurn(false);
-        setAttacker(getPlayerById(players, id)!);
+        const attacker = getPlayerById(players, id);
+        attacker!.isAttacker = true;
+        setAttacker(attacker!);
+        attacker!.isAttacker = true;
       }, timeConstant.TURN_INIT);
     }
 

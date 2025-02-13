@@ -30,6 +30,8 @@ const useStore = create<AppState>()((set) => ({
   setPerformingBarAnimation: (performingBarAnimation: boolean) => set(() => ({ performingBarAnimation: performingBarAnimation })),
   changePlayer: false,
   setChangePlayer: (changePlayer: boolean) => set(() => ({ changePlayer: changePlayer })),
+  attackAnimation: false,
+  setAttackAnimation: (attackAnimation: boolean) => set(() => ({ attackAnimation: attackAnimation })),
 }));
 
 export default useStore;
