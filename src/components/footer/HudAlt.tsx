@@ -48,13 +48,13 @@ const Hud: React.FC = () => {
             alt="Separator" />
         </div>
 
-        {/* Dravocar Team */}
+        {/* Dravokar Team */}
         <div className="flex flex-col items-center justify-start w-[50%] p-1">
           <img
-            src={'/images/dravocar.webp'}
+            src={'/images/dravokar.webp'}
             className="w-48 mb-1" />
           <div className="flex flex-wrap justify-center content-start h-full overflow-y-auto scrollbar-hide">
-            {players?.dravocar.map((player, index) => (
+            {players?.dravokar.map((player, index) => (
               <div
                 key={index}
                 className="m-0.5">

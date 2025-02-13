@@ -6,7 +6,7 @@ import { PlayersRole } from './PlayerRole';
 export interface AppState {
   players: PlayersRole;
   addKaotika: (kaotika: Player) => void;
-  addDravocar: (dravocar: Player) => void;
+  addDravokar: (dravokar: Player) => void;
   socket: Socket;
   round: number;
   addRound: (by: number) => void;

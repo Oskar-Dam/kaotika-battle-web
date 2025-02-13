@@ -10,7 +10,7 @@ import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravokar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export const useSocketListeners = () => {
       console.log('enter in send user' + data.nickname);
       if (data) {
         if (data.isBetrayer) {
-          addDravocar(data);
+          addDravokar(data);
           pop();
         } else {
           addKaotika(data);
