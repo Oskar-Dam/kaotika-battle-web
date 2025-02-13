@@ -1,3 +1,4 @@
+import { AttackInformation } from '@/Interfaces/AttackInformation';
 import { timeConstant } from '@/constants/TimeConstants';
 import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
@@ -78,10 +79,9 @@ export const useSocketListeners = () => {
       }, timeConstant.SELECTED_PLAYER);
     }
 
-    function attackInfo(attackInfo: object) {
+    function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       console.log(attackInfo);
-
       // console.log('daño: ' + totalDamage);
       // setPlayers(updatePlayerById(players, id, attr));
       swordSwing();
