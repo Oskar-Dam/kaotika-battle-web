@@ -1,3 +1,4 @@
+import { timeConstant } from '@/constants/TimeConstants';
 import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import { Player } from '../Interfaces/Player';
@@ -32,7 +33,7 @@ export const useSocketListeners = () => {
       setFinishTurn(true);
       setTimeout(() => {
         socket.emit('web-turnEnd');
-      }, 700);
+      }, timeConstant.TURN_END);
     };
   }, [timer]);
 
@@ -75,7 +76,7 @@ export const useSocketListeners = () => {
         setChangePlayer(false);
         setDefender(getPlayerById(players, id)!);
         swap();
-      }, 300);
+      }, timeConstant.SELECTED_PLAYER);
     }
 
     function updatePlayer(id: string, attr: Partial<Player>, totalDamage: number) {
@@ -86,7 +87,7 @@ export const useSocketListeners = () => {
       setFinishTurn(true);
       setTimeout(() => {
         socket.emit('web-turnEnd');
-      }, 1500);
+      }, timeConstant.ATTACK_END);
     }
 
     function assignTurn(id: string) {
@@ -96,7 +97,7 @@ export const useSocketListeners = () => {
       setTimeout(() => {
         setFinishTurn(false);
         setAttacker(getPlayerById(players, id)!);
-      }, 700);
+      }, timeConstant.TURN_INIT);
     }
 
     function removePlayer(id: string): void {
@@ -105,7 +106,7 @@ export const useSocketListeners = () => {
       setTimeout(() => {
         setFinishTurn(true);
         socket.emit('web-turnEnd');
-      }, 1500);
+      }, timeConstant.REMOVE_PLAYER);
     }
 
     function playerDisconnected(nickName: string) {
