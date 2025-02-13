@@ -1,5 +1,5 @@
 export const timeConstant = {
-  ATTACK_END: 1500,
+  ATTACK_END: 1400,
   TURN_INIT: 700,
   REMOVE_PLAYER: 1500,
   SELECTED_PLAYER: 300,
