@@ -4,6 +4,6 @@ export default function getPlayerById(players: PlayersRole, id: string) : Player
   console.log('in get player by Id');
   console.log(players);
 
-  const allPlayers = [...players.dravocar, ...players.kaotika];
+  const allPlayers = [...players.dravokar, ...players.kaotika];
   return allPlayers.find(player => player._id === id);
 }

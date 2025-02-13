@@ -1,3 +1,4 @@
+import { timeConstant } from '@/constants/TimeConstants';
 import 'animate.css';
 import React, { useEffect, useState } from 'react';
 import useStore from '../../store/store';
@@ -10,11 +11,9 @@ const DisconnectUser: React.FC = () => {
     if (disconnectedPlayer) {
       setIsVisible(true);
 
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setIsVisible(false);
-      }, 3000);
-
-      return () => clearTimeout(timer);
+      }, timeConstant.DISCONNECTED_PLAYER);
     }
   }, [disconnectedPlayer]);
 

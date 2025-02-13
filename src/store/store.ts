@@ -7,9 +7,9 @@ import { PlayersRole } from '../Interfaces/PlayerRole';
 
 const useStore = create<AppState>()((set) => ({
 
-  players: { dravocar: [], kaotika: [] },
+  players: { dravokar: [], kaotika: [] },
   addKaotika: (kaotika: Player) => set((state) => ({ players: { ...state.players, kaotika: [...state.players.kaotika, kaotika] } })),
-  addDravocar: (dravocar: Player) => set((state) => ({ players: { ...state.players, dravocar: [...state.players.dravocar, dravocar] } })),
+  addDravokar: (dravokar: Player) => set((state) => ({ players: { ...state.players, dravokar: [...state.players.dravokar, dravokar] } })),
   socket: io(import.meta.env.VITE_SERVER_URL as string),
   round: 1,
   addRound: (by: number) => set((state) => ({ round: state.round += by })),
@@ -30,6 +30,8 @@ const useStore = create<AppState>()((set) => ({
   setPerformingBarAnimation: (performingBarAnimation: boolean) => set(() => ({ performingBarAnimation: performingBarAnimation })),
   changePlayer: false,
   setChangePlayer: (changePlayer: boolean) => set(() => ({ changePlayer: changePlayer })),
+  attackAnimation: false,
+  setAttackAnimation: (attackAnimation: boolean) => set(() => ({ attackAnimation: attackAnimation })),
   message: '',
   setMessage: (message: string) => set(() => ({ message: message })),
   rollMessage: '',

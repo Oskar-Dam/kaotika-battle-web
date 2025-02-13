@@ -6,7 +6,7 @@ import { PlayersRole } from './PlayerRole';
 export interface AppState {
   players: PlayersRole;
   addKaotika: (kaotika: Player) => void;
-  addDravocar: (dravocar: Player) => void;
+  addDravokar: (dravokar: Player) => void;
   socket: Socket;
   round: number;
   addRound: (by: number) => void;
@@ -27,6 +27,8 @@ export interface AppState {
   setPerformingBarAnimation: (performingBarAnimation: boolean) => void;
   changePlayer: boolean;
   setChangePlayer: (changePlayer: boolean) => void;
+  attackAnimation: boolean;
+  setAttackAnimation: (attackAnimation: boolean) => void;
   message: string,
   setMessage: (message: string) => void;
   rollMessage: string,

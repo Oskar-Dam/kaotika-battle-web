@@ -11,15 +11,15 @@ interface OpponentProps {
 }
 
 const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
-  const [warriorPhoto, setWarriorPhoto] = useState<string>('');
-  const { finishTurn } = useStore();
+  const [warrior, setWarrior] = useState({idle: '', attack: ''});
+  const { finishTurn, attackAnimation } = useStore();
 
   useEffect(() => {    
     if (player) {
-      const warriorPhoto = getPhotoByLoyalty(player);
-      setWarriorPhoto(warriorPhoto);
+      const warrior = getPhotoByLoyalty(player);
+      setWarrior(warrior);
     } else {
-      setWarriorPhoto('');
+      setWarrior({idle: '', attack: ''});
     }
   }, [player]);
 
@@ -34,13 +34,13 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
   };
   return (
     <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>
-      {warriorPhoto !== '' ? (
+      {warrior.idle !== '' ? (
         <>
           <div className='w-full h-[70%] flex justify-center items-center'>
             <div className='relative w-full h-[70%]'>
               <div className='absolute top-[100%]  w-[100%] h-[30%] rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
               <img
-                src={warriorPhoto}
+                src={attackAnimation && player.isAttacker ? warrior.attack : warrior.idle}
                 className={`w-full object-cover ${styles}`}
               />
             </div>

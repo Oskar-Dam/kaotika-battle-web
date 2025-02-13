@@ -16,6 +16,25 @@ function App() {
   const [animationFinished, setAnimationFinished] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  const introVideos = [
+    '/videos/istvan.mp4',
+    '/videos/mortimer.mp4',
+    '/videos/villain.mp4',
+    '/videos/jonas.mp4',
+    '/videos/aivan.mp4',
+    '/videos/isaac.mp4',
+    '/videos/ignatius.mp4',
+    '/videos/merchant.mp4',
+    '/videos/poluctus.mp4',
+    '/videos/angelo.mp4',
+  ];
+
+  const handleVideoEnd = () => {
+    setCurrentVideoIndex((prevIndex) =>
+      prevIndex === introVideos.length - 1 ? 0 : prevIndex + 1);
+  };
 
   useEffect(() => {
     if (animationFinished) {
@@ -42,30 +61,40 @@ function App() {
           className={`overflow-hidden absolute inset-0 bg-center bg-cover transition-opacity duration-2000 ${animationFinished ? 'opacity-100' : 'opacity-0'}`}>
 
           {/* Background video */}
-          <video
-            className='w-full absolute'
-            loop
-            autoPlay
-            muted>
-            <source src={battleVideo}></source>
-          </video>
-
-          {/* Header Container */}
-          {startBattle && <HeaderContainer />}
-
-          {/* Battle Container */}
-          {startBattle && <BattleContainer />}
-          {!startBattle && <WaitingBattle />}
-
-          {finishTurn && startBattle && <FinishTurn />}
+          {startBattle ? (
+            <>
+              <video
+                className="w-full absolute"
+                loop
+                autoPlay
+                muted>
+                <source src={battleVideo} />
+              </video>
+              {/* Header Container */}
+              <HeaderContainer />
+              {/* Battle Container */}
+              <BattleContainer />
+              {finishTurn && <FinishTurn />}
+            </>
+          ) : (
+            <div className="relative w-full h-full bg-black">
+              <video
+                className="w-full h-full object-cover absolute"
+                autoPlay
+                muted
+                onEnded={handleVideoEnd}
+                src={introVideos[currentVideoIndex]}
+              />
+              <WaitingBattle />
+            </div>
+          )}
 
           {/* Footer Container */}
           <Hud />
-        </div >
-      ) :
-        // Winner Component
+        </div>
+      ) : (
         <WinnerText />
-      }
+      )}
       <Message />
     </>
   );
