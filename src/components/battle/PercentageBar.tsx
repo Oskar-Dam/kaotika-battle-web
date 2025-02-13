@@ -1,5 +1,9 @@
+import { inAnimations } from '@/constants/animations';
+import { randomAnimation } from '@/helpers/randomAnimation';
+import { Player } from '@/Interfaces/Player';
 import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
+import RollMessage from '../messages/RollMessage';
 
 interface Props {
     chances: {
@@ -10,23 +14,19 @@ interface Props {
     }
 
     receivedValue: number;
+    player: Player;
 }
 
-const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
-  const {performingBarAnimation, setPerformingBarAnimation} = useStore();
-  const randomInitAnimation = () => {
-    const animations = ['animate__zoomInDown', 'animate__zoomInUp', 'animate__zoomInLeft', 'animate__zoomInRight'];
-    const randomIndex = Math.floor(Math.random() * animations.length);
-    return animations[randomIndex];
-  };
+const PercentageBar: React.FC<Props> = ({chances, receivedValue, player}) => {
+  const {setRollMessage, performingBarAnimation, setPerformingBarAnimation, attacker} = useStore();
 
-  const [animation, setAnimation] = useState(randomInitAnimation);
-  const [value, setValue] = useState<number>(0);
+  const [animation, setAnimation] = useState(randomAnimation(inAnimations));
+  const [value, setValue] = useState<number>(-1);
 
   useEffect(() => {
     setPerformingBarAnimation(true);
-    console.log('performingBarAnimation', performingBarAnimation);
   }, [performingBarAnimation]);
+
   useEffect(() => {
     if (performingBarAnimation) {
       let loops = 0;
@@ -48,17 +48,15 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
 
   useEffect(() => {
     if (value === receivedValue) {
+      setRollMessage('Test your luck...');
       setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
+        setRollMessage(`${attacker?.nickname} rolled a ${value}!`);
       } , 3000);
       return () => clearInterval(interval);
     }
   } , [value]);
-
-  useEffect(() => { 
-    console.log('animation', animation);
-  }, [animation]);
   
   useEffect(() => {
     const triangle = document.getElementById('triangle');
@@ -70,7 +68,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
 
   return (
     <>
-      {performingBarAnimation ? (
+      {performingBarAnimation && player._id === attacker?._id ? (
         <>
           <div className={`animate__animated ${animation} w-[10%] h-[33vh] flex flex-col justify-end relative`}>
             <div className='absolute w-full bg-[rgba(0,_0,_0,_0.4)] h-[100%] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
@@ -79,7 +77,6 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
                 <div
                   className={'absolute bottom-0 bg-[#8B0000] w-full'} 
                   style={{ height: `${chances.fumble}%` }}>
-                  <p>{receivedValue}</p>
                 </div>
                 <div
                   className={'absolute bottom-0 bg-[#4B0082] w-full'}  
@@ -95,7 +92,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
                 </div>
                 <div
                   id='triangle'
-                  className=' w-[100%] h-[30px] absolute bottom-0 mb-[-15px] ml-[100%] rotate-90 z-10'
+                  className=' w-[100%] h-[30px] absolute bottom-0 mb-[-15px] ml-[100%] rotate-90 z-10 '
                   style={{ bottom: `${value}%` }}
                 >
                   <img 
@@ -103,6 +100,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
                     className="w-full h-full object-cover"
                     alt="frame"
                   />
+                  <div className='ml-[50%] border-l-[5px] border-l-black border-b-[20px] border-b-transparent '/>
                 </div>
               </div>
             </div>
@@ -114,6 +112,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
               />
             </div>
           </div>
+          <RollMessage />
         </>
       ) : null}
     </>

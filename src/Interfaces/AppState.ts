@@ -33,4 +33,10 @@ export interface AppState {
   setAttackRightPlayerAnimation: (attackAnimation: boolean) => void;
   attackLeftPlayerAnimation: boolean;
   setAttackLeftPlayerAnimation: (attackAnimation: boolean) => void;
+  message: string,
+  setMessage: (message: string) => void;
+  rollMessage: string,
+  setRollMessage: (rollMessage: string) => void;
+  battleMessage: string,
+  setBattleMessage: (battleMessage: string) => void;
 }

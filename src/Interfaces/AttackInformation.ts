@@ -1,27 +1,28 @@
-
-export interface AttackInformation {
+export type AttackInformation = {
   attack: {
     targetPlayerId: string,
-    hitPoints: number,
-    percentages: {
-      critical: number,
-      normal: number,
-      failed: number,
-      fumble: number
-    },
+    hit_points: number,
+    percentages: Percentages,
     dieRoll: number,
-    dealtDamage: number
+    dealedDamage: number
   },
   luck: {
     attacker: {
       hasLuck: boolean,
       luckRolls: number[],
-      luckRollMessages: string[]
+      luckRollMessage?: string | undefined,
     },
     defender: {
       hasLuck: boolean,
       luckRolls: number[],
-      luckRollMessages: string[]
+      luckRollMessage: string | undefined,
     }
   }
+};
+
+export interface Percentages {
+  critical: number,
+  normal: number,
+  failed: number,
+  fumble: number
 }

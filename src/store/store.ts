@@ -36,6 +36,12 @@ const useStore = create<AppState>()((set) => ({
   setAttackRightPlayerAnimation: (attackRightPlayerAnimation: boolean) => set(() => ({ attackRightPlayerAnimation: attackRightPlayerAnimation })),
   attackLeftPlayerAnimation: false,
   setAttackLeftPlayerAnimation: (attackLeftPlayerAnimation: boolean) => set(() => ({ attackLeftPlayerAnimation: attackLeftPlayerAnimation })),
+  message: '',
+  setMessage: (message: string) => set(() => ({ message: message })),
+  rollMessage: '',
+  setRollMessage: (rollMessage: string) => set(() => ({ rollMessage: rollMessage })),
+  battleMessage: '',
+  setBattleMessage: (battleMessage: string) => set(() => ({ battleMessage: battleMessage })),
 }));
 
 export default useStore;
