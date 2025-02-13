@@ -68,7 +68,7 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player }) => {
           {/* Frame Image Layer */}
           <img
             src={player.isBetrayer
-              ? '/images/dravocar_frame.webp'
+              ? '/images/dravokar_frame.webp'
               : '/images/kaotika_frame.webp'}
             alt="Avatar Frame"
             className="absolute w-[91px] h-[91px] rounded-full object-cover"
