@@ -29,4 +29,8 @@ export interface AppState {
   setChangePlayer: (changePlayer: boolean) => void;
   message: string,
   setMessage: (message: string) => void;
+  rollMessage: string,
+  setRollMessage: (message: string) => void;
+  battleMessage: string,
+  setBattleMessage: (message: string) => void;
 }

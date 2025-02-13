@@ -15,14 +15,14 @@ interface Props {
 }
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
-  const {setMessage, performingBarAnimation, setPerformingBarAnimation} = useStore();
+  const {setRollMessage, performingBarAnimation, setPerformingBarAnimation} = useStore();
 
   const [animation, setAnimation] = useState(randomAnimation(inAnimations));
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
     setPerformingBarAnimation(true);
-    setMessage('Calculating chances...');
+    setRollMessage('Calculating chances...');
     console.log('performingBarAnimation', performingBarAnimation);
   }, [performingBarAnimation]);
   useEffect(() => {
@@ -49,7 +49,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue}) => {
       setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
-        setMessage(`Rolled a ${receivedValue}!`);
+        setRollMessage(`Rolled a ${receivedValue}!`);
       } , 3000);
       return () => clearInterval(interval);
     }
