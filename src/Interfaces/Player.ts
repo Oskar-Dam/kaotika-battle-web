@@ -29,5 +29,4 @@ export interface Player {
   status: Status,
   role: string,
   isBetrayer: boolean,
-  isAttacker: boolean,
 }

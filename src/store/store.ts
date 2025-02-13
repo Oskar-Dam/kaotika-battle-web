@@ -28,8 +28,10 @@ const useStore = create<AppState>()((set) => ({
   setWinner: (winner: string) => set(() => ({ winner: winner })),
   performingBarAnimation: false,
   setPerformingBarAnimation: (performingBarAnimation: boolean) => set(() => ({ performingBarAnimation: performingBarAnimation })),
-  changePlayer: false,
-  setChangePlayer: (changePlayer: boolean) => set(() => ({ changePlayer: changePlayer })),
+  changeRightPlayerAnimation: false,
+  setChangeRightPlayerAnimation: (changeRightPlayerAnimation: boolean) => set(() => ({ changeRightPlayerAnimation: changeRightPlayerAnimation })),
+  changeLeftPlayerAnimation: false,
+  setChangeLeftPlayerAnimation: (changeLeftPlayerAnimation: boolean) => set(() => ({ changeLeftPlayerAnimation: changeLeftPlayerAnimation })),
   attackAnimation: false,
   setAttackAnimation: (attackAnimation: boolean) => set(() => ({ attackAnimation: attackAnimation })),
 }));

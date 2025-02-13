@@ -10,7 +10,7 @@ import { deletePlayerById } from '../helpers/utils';
 import useStore from '../store/store';
 
 export const useSocketListeners = () => {
-  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangePlayer, setAttackAnimation } = useStore();
+  const { players, socket, setPlayers, setDefender, timer, setTimer, setAttacker, addDravocar, addKaotika, attacker, setDisconnectedPlayer, finishTurn, setFinishTurn, setWinner, setChangeRightPlayerAnimation, setChangeLeftPlayerAnimation, setAttackAnimation } = useStore();
   const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
   const [startBattle, setStartBattle] = useState<boolean>(false);
   const [finishGame, setFinishGame] = useState<boolean>(false);
@@ -71,12 +71,19 @@ export const useSocketListeners = () => {
 
     function webSelectedPlayer(id: string) {
       console.log('enter in selected player');
-      setChangePlayer(true);
+      const defender = getPlayerById(players, id);
+      if (defender?.isBetrayer){
+        setChangeRightPlayerAnimation(true);
+      } else {
+        setChangeLeftPlayerAnimation(true);
+      }
       setTimeout(() => {
-        setChangePlayer(false);
-        const selectedPlayer = getPlayerById(players, id);
-        selectedPlayer!.isAttacker = false;
-        setDefender(selectedPlayer!);
+        if (defender?.isBetrayer){
+          setChangeRightPlayerAnimation(false);
+        } else {
+          setChangeLeftPlayerAnimation(false);
+        }
+        setDefender(defender!);
         swap();
       }, timeConstant.SELECTED_PLAYER);
     }
@@ -101,10 +108,7 @@ export const useSocketListeners = () => {
       console.log(attacker?.nickname);
       setTimeout(() => {
         setFinishTurn(false);
-        const attacker = getPlayerById(players, id);
-        attacker!.isAttacker = true;
-        setAttacker(attacker!);
-        attacker!.isAttacker = true;
+        setAttacker(getPlayerById(players, id)!);
       }, timeConstant.TURN_INIT);
     }
 

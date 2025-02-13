@@ -1,6 +1,6 @@
 export const timeConstant = {
   ATTACK_END: 1400,
-  TURN_INIT: 700,
+  TURN_INIT: 300,
   REMOVE_PLAYER: 1500,
   SELECTED_PLAYER: 300,
   TURN_END: 700,

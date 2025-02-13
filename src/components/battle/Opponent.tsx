@@ -8,10 +8,16 @@ interface OpponentProps {
   player: Player;
   styles?: string;
   styleClass: string;
+  isAttacker: boolean;
 }
 
-const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
-  const [warrior, setWarrior] = useState({idle: '', attack: ''});
+interface Warrior {
+  idle: string;
+  attack: string;
+}
+
+const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass, isAttacker }) => {
+  const [warrior, setWarrior] = useState<Warrior>({idle: '', attack: ''});
   const { finishTurn, attackAnimation } = useStore();
 
   useEffect(() => {
@@ -33,14 +39,14 @@ const Opponent: React.FC<OpponentProps> = ({ player, styles, styleClass }) => {
     receivedValue: 100,
   };
   return (
-    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn && 'animate__fadeOutLeftBig'} ${!finishTurn && 'animate__fadeInLeftBig'}`}>
+    <div className={`animate__animated ${styleClass} w-[45%] h-[90%] mt-[10%] ${finishTurn ? 'animate__fadeOutLeftBig' : 'animate__fadeInLeftBig'}`}>
       {warrior.idle !== '' ? (
         <>
           <div className='w-full h-[70%] flex justify-center items-center'>
             <div className='relative w-full h-[70%]'>
               <div className='absolute top-[100%]  w-[100%] h-[30%] rounded-[100%] bg-[rgba(0,_0,_0,_0.4)] shadow-[0_0_10px_10px_rgba(0,_0,_0,_0.4)]' />
               <img
-                src={attackAnimation && player.isAttacker ? warrior.attack : warrior.idle}
+                src={attackAnimation && isAttacker ? warrior.attack : warrior.idle}
                 className={`w-full object-cover ${styles}`}
               />
             </div>
