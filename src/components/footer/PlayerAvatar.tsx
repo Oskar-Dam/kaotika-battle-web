@@ -1,11 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Player } from '../../Interfaces/Player';
 
+type AvatarSize = 'small' | 'medium' | 'large';
+
 interface PlayerProps {
   player: Player;
+  size: AvatarSize;
 }
 
-const PlayerAvatar: React.FC<PlayerProps> = ({ player }) => {
+const SIZES: Record<AvatarSize, {
+  container: string;
+  border: string;
+  avatar: string;
+  frame: string;
+}> = {
+  small: {
+    container: 'w-[51px] h-[51px]',
+    border: 'w-[42px] h-[42px]',
+    avatar: 'w-[35px] h-[35px]',
+    frame: 'w-[65px] h-[65px]'
+  },
+  medium: {
+    container: 'w-[71px] h-[71px]',
+    border: 'w-[59px] h-[57px]',
+    avatar: 'w-[49px] h-[49px]',
+    frame: 'w-[91px] h-[91px]'
+  },
+  large: {
+    container: 'w-[91px] h-[91px]',
+    border: 'w-[76px] h-[74px]',
+    avatar: 'w-[63px] h-[63px]',
+    frame: 'w-[117px] h-[117px]'
+  }
+};
+
+const PlayerAvatar: React.FC<PlayerProps> = ({ player, size = 'medium' }) => {
   const [currentHp, setCurrentHp] = useState(player.attributes.hit_points);
   const [borderStyle, setBorderStyle] = useState({});
 
@@ -47,13 +76,15 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player }) => {
     setBorderStyle(newStyle);
   }, [currentHp, player.isBetrayer, player.base_attributes.hit_points]);
 
+  const sizeClasses = SIZES[size];
+
   return (
     <>
-      {player &&
-        <div className="relative w-[71px] h-[71px] flex items-center justify-center">
+      {player && 
+        <div className={`relative flex items-center justify-center ${sizeClasses.container}`}>
           {/* HP Border Layer */}
           <div
-            className="absolute rounded-full p-[2px] w-[59px] h-[57px] transition-all duration-500"
+            className={`absolute rounded-full p-[2px] transition-all duration-500 ${sizeClasses.border}`}
             style={borderStyle}
           />
 
@@ -62,7 +93,7 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player }) => {
             loading='lazy'
             src={player.avatar}
             alt={player.name}
-            className="relative w-[49px] h-[49px] rounded-full object-cover"
+            className={`relative rounded-full object-cover ${sizeClasses.avatar}`}
           />
 
           {/* Frame Image Layer */}
@@ -71,7 +102,7 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player }) => {
               ? '/images/dravokar_frame.webp'
               : '/images/kaotika_frame.webp'}
             alt="Avatar Frame"
-            className="absolute w-[91px] h-[91px] rounded-full object-cover"
+            className={`absolute rounded-full object-cover ${sizeClasses.frame}`}
           />
         </div>
       }
