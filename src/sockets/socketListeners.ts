@@ -19,8 +19,8 @@ export const useSocketListeners = () => {
   const [pop] = useSound('/sounds/pop.mp3');
 
   useEffect(() => {
-    socket.emit('web-sendSocketId');
-    socket.emit('web-sendUsers');
+    socket.emit(socketName.SEND_SOCKETID);
+    socket.emit(socketName.SEND_USERS);
   }, []);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const useSocketListeners = () => {
       console.log('SEND TURN END SOCKET');
       setFinishTurn(true);
       setTimeout(() => {
-        socket.emit('web-turnEnd');
+        socket.emit(socketName.TURN_END);
       }, timeConstant.TURN_END);
     };
   }, [timer]);
@@ -90,7 +90,7 @@ export const useSocketListeners = () => {
         setAttackAnimation(false);
         setFinishTurn(true);
         setTimeout(() => {
-          socket.emit('web-turnEnd');
+          socket.emit(socketName.TURN_END);
         }, timeConstant.TURN_END);
       }, timeConstant.ATTACK_END);
     }
@@ -113,7 +113,7 @@ export const useSocketListeners = () => {
       setPlayers(deletePlayerById(players, id));
       setTimeout(() => {
         setFinishTurn(true);
-        socket.emit('web-turnEnd');
+        socket.emit(socketName.TURN_END);
       }, timeConstant.REMOVE_PLAYER);
     }
 
