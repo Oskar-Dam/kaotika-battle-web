@@ -6,9 +6,10 @@ import React, { useEffect, useState } from 'react';
 
 const RollMessage: React.FC = () => {
   
-  const { rollMessage } = useStore();
+  const { rollMessage, attacker } = useStore();
   const [animation, setAnimation] = useState(randomAnimation(outAnimations));
   const [isVisible, setIsVisible] = useState(false);
+  const [transform, setTransform] = useState('transform scale-x-[1]');
 
   useEffect(() => {
     if (rollMessage) {
@@ -22,11 +23,19 @@ const RollMessage: React.FC = () => {
     }
   }, [rollMessage]);
   
+  useEffect(() => {
+    if (attacker?.isBetrayer) {
+      setTransform('transform scale-x-[-1]');
+    } else {
+      setTransform('transform scale-x-[1]');
+    }
+  }, [attacker]);
+
   return (
     isVisible ? (
       <div
         key={rollMessage}
-        className={`absolute border ml-[20%] top-[35%] w-[20%] bg-[rgba(0,_0,_0,_0.4)] animate__animated ${animation} animate__delay-2s rounded-md shadow-[0_0_30px_30px_rgba(0,_0,_0,_0.4)]`}
+        className={`${transform} absolute border ml-[20%] top-[35%] w-[20%] bg-[rgba(0,_0,_0,_0.4)] animate__animated ${animation} animate__delay-2s rounded-md shadow-[0_0_30px_30px_rgba(0,_0,_0,_0.4)]`}
         style={{ animationDuration: '2s' }}
       >
         <p className='text-4xl text-blue-600'>{rollMessage}</p>

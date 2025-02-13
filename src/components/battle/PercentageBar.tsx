@@ -52,7 +52,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue, player}) => {
       setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
-        setRollMessage(`${player.nickname} rolled a ${value}!`);
+        setRollMessage(`${attacker?.nickname} rolled a ${value}!`);
       } , 3000);
       return () => clearInterval(interval);
     }
