@@ -1,21 +1,21 @@
 import { Player } from '../Interfaces/Player';
 
-export function getPhotoByLoyalty(player: Player): string {
+export function getPhotoByLoyalty(player: Player) {
   const isBetrayer = player.isBetrayer;
-  let image;
+  let images;
 
   switch (isBetrayer) {
   case false:
-    image = '/images/warrior_1_1.png';
+    images = { idle: '/images/warrior_1_1.png', attack: '/images/warrior_2_attack.gif' };
     break;
 
   case true:
-    image = '/images/warrior_2_1.png';
+    images = { idle: '/images/warrior_2_1.png', attack: '/images/warrior_2_attack.gif' };
     break;
 
   default:
-    image = '';
+    images = { idle: '', attack: '' };
   }
 
-  return image;
+  return images;
 }

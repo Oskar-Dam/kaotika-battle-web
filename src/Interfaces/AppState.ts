@@ -27,4 +27,6 @@ export interface AppState {
   setPerformingBarAnimation: (performingBarAnimation: boolean) => void;
   changePlayer: boolean;
   setChangePlayer: (changePlayer: boolean) => void;
+  attackAnimation: boolean;
+  setAttackAnimation: (attackAnimation: boolean) => void;
 }
