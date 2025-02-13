@@ -30,7 +30,7 @@ export interface AppState {
   message: string,
   setMessage: (message: string) => void;
   rollMessage: string,
-  setRollMessage: (message: string) => void;
+  setRollMessage: (rollMessage: string) => void;
   battleMessage: string,
-  setBattleMessage: (message: string) => void;
+  setBattleMessage: (battleMessage: string) => void;
 }

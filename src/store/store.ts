@@ -33,9 +33,9 @@ const useStore = create<AppState>()((set) => ({
   message: '',
   setMessage: (message: string) => set(() => ({ message: message })),
   rollMessage: '',
-  setRollMessage: (message: string) => set(() => ({ message: message })),
+  setRollMessage: (rollMessage: string) => set(() => ({ rollMessage: rollMessage })),
   battleMessage: '',
-  setBattleMessage: (message: string) => set(() => ({ message: message })),
+  setBattleMessage: (battleMessage: string) => set(() => ({ battleMessage: battleMessage })),
 }));
 
 export default useStore;
