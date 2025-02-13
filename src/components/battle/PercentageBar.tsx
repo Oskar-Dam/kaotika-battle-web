@@ -1,8 +1,11 @@
 import { inAnimations } from '@/constants/animations';
+import { socketName } from '@/constants/socketConstants';
+import { timeConstant } from '@/constants/TimeConstants';
 import { randomAnimation } from '@/helpers/randomAnimation';
 import { Player } from '@/Interfaces/Player';
 import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
+import useSound from 'use-sound';
 import RollMessage from '../messages/RollMessage';
 
 interface Props {
@@ -18,14 +21,11 @@ interface Props {
 }
 
 const PercentageBar: React.FC<Props> = ({chances, receivedValue, player}) => {
-  const {setRollMessage, performingBarAnimation, setPerformingBarAnimation, attacker} = useStore();
+  const {attackAnimation , socket, defender, setFinishTurn ,setRollMessage, performingBarAnimation, setAttackAnimation , attacker} = useStore();
+  const [swordSwing] = useSound('/sounds/swordSwing.mp3');
 
   const [animation, setAnimation] = useState(randomAnimation(inAnimations));
   const [value, setValue] = useState<number>(-1);
-
-  useEffect(() => {
-    setPerformingBarAnimation(true);
-  }, [performingBarAnimation]);
 
   useEffect(() => {
     if (performingBarAnimation) {
@@ -52,12 +52,26 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue, player}) => {
       setAnimation('animate__pulse');
       const interval = setInterval(() => {
         setAnimation('animate__zoomOutUp');
+        setAttackAnimation(true);
+        swordSwing();
         setRollMessage(`${attacker?.nickname} rolled a ${value}!`);
       } , 3000);
       return () => clearInterval(interval);
     }
   } , [value]);
   
+  useEffect(() => {
+    if (attackAnimation) {
+      setTimeout(() => {
+        setAttackAnimation(false);
+        setFinishTurn(true);
+        setTimeout(() => {          
+          socket.emit(socketName.TARGET_VALUE, {defender: defender?._id, attacker: attacker?._id});
+          socket.emit(socketName.TURN_END);
+        }, timeConstant.TURN_END);
+      }, timeConstant.ATTACK_END);
+    }
+  } , []);
   useEffect(() => {
     const triangle = document.getElementById('triangle');
     if (triangle) {
