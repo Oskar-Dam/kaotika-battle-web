@@ -118,7 +118,7 @@ export const useSocketListeners = () => {
         }
         setFinishTurn(true);
         setTimeout(() => {
-          socket.emit(socketName.TARGET_VALUE, { defender: defender?._id, attacker: attacker?._id });
+          socket.emit(socketName.TARGET_VALUE, defender?._id);
           socket.emit(socketName.TURN_END);
         }, timeConstant.TURN_END);
       }, timeConstant.ATTACK_END);
