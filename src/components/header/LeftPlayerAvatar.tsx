@@ -8,7 +8,7 @@ interface LeftPlayerAttributesInterface {
 }
 
 const LeftPlayerAvatar: React.FC<LeftPlayerAttributesInterface> = ({ player, isAttacker }) => {
-  const { finishTurn } = useStore();
+  const { finishTurn, changeLeftPlayerAnimation } = useStore();
 
   return (
     <div className='flex flex-start h-[55%] w-[7%] ml-[4.5%] justify-center items-center'>
@@ -24,7 +24,7 @@ const LeftPlayerAvatar: React.FC<LeftPlayerAttributesInterface> = ({ player, isA
           <img
             src={player.avatar}
             alt='Player Avatar'
-            className={`h-[80%] w-[80%] object-cover z-10 rounded-[100%] animate__animated ${finishTurn && 'animate__fadeOut'} ${!finishTurn && 'animate__fadeIn'}`} />
+            className={`h-[80%] w-[80%] object-cover z-10 rounded-[100%] animate__animated ${changeLeftPlayerAnimation && !isAttacker && 'animate__fadeOut'} ${finishTurn ? 'animate__fadeOut' : 'animate__fadeIn'}`} />
         </>
       )}
     </div>

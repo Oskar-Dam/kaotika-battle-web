@@ -20,10 +20,10 @@ const RightPlayerLifeBar: React.FC<RightPlayerLifeBarInterface> = ({ maxHitpoint
   return (
     <div className="flex inline-row h-[70%] w-full z-10">
       <div
-        className={'bg-right bg-cover transition-all duration-1000 transition-slowest ease'}
+        className={'bg-right bg-cover transition-all duration-300 transition-slowest ease'}
         style={{ backgroundImage: `url(${missingRightLifeBar})`, width: `${missingLife}%` }} />
       <div
-        className={'bg-right bg-cover transition-all duration-1000 transition-slowest ease'}
+        className={'bg-right bg-cover transition-all duration-300 transition-slowest ease'}
         style={{ backgroundImage: `url(${rightLifeBar})`, width: `${life}%` }} />
     </div>
   );

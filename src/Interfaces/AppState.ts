@@ -25,10 +25,14 @@ export interface AppState {
   setWinner: (winner: string) => void;
   performingBarAnimation: boolean,
   setPerformingBarAnimation: (performingBarAnimation: boolean) => void;
-  changePlayer: boolean;
-  setChangePlayer: (changePlayer: boolean) => void;
-  attackAnimation: boolean;
-  setAttackAnimation: (attackAnimation: boolean) => void;
+  changeRightPlayerAnimation: boolean;
+  setChangeRightPlayerAnimation: (changePlayer: boolean) => void;
+  changeLeftPlayerAnimation: boolean;
+  setChangeLeftPlayerAnimation: (changePlayer: boolean) => void;
+  attackRightPlayerAnimation: boolean;
+  setAttackRightPlayerAnimation: (attackAnimation: boolean) => void;
+  attackLeftPlayerAnimation: boolean;
+  setAttackLeftPlayerAnimation: (attackAnimation: boolean) => void;
   message: string,
   setMessage: (message: string) => void;
   rollMessage: string,
