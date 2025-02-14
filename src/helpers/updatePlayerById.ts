@@ -8,7 +8,9 @@ export default function updatePlayerById(players: PlayersRole, id: string, newHp
   const playerBeforeUpdate = [...players.dravokar, ...players.kaotika].find(player => player._id === id);
   console.log('Player antes de la actualización:', playerBeforeUpdate);
 
-  const allPlayers = [...players.dravokar, ...players.kaotika].map(player => player._id === id ? { ...player, attributes: {...player.attributes, hit_points: newHp }}: player);
+  const adjustedHp = newHp < 0 ? 0 : newHp;
+
+  const allPlayers = [...players.dravokar, ...players.kaotika].map(player => player._id === id ? { ...player, attributes: {...player.attributes, hit_points: adjustedHp }}: player);
 
   // Player after attack
   const playerAfterUpdate = allPlayers.find(player => player._id === id);
