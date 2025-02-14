@@ -93,6 +93,9 @@ export const useSocketListeners = () => {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       const id = attackInfo.attack.targetPlayerId;
       const newHp = attackInfo.attack.hit_points;
+
+      console.log('HP TO CHANGE');
+      console.log(newHp);
       
       if (attacker?.isBetrayer){
         setAttackRightPlayerAnimation(true);
@@ -173,6 +176,10 @@ export const useSocketListeners = () => {
 
     console.log('PLAYERS');
     console.log(players);
+
+    console.log('DEFENDER LIFE');
+    console.log(defender?.nickname);
+    console.log(defender?.attributes.hit_points);
 
     return () => {
       socket.off(socketName.CONNECT, onConnect);
