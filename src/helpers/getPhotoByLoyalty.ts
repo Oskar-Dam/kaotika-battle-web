@@ -6,7 +6,7 @@ export function getPhotoByLoyalty(player: Player) {
 
   switch (isBetrayer) {
   case false:
-    images = { idle: '/images/warrior_1_1.png', attack: '/images/warrior_2_attack.gif' };
+    images = { idle: '/images/warrior_1_1.png', attack: '/images/warrior_1_attack.gif' };
     break;
 
   case true:
