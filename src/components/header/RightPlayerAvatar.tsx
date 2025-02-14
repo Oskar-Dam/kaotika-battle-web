@@ -8,13 +8,13 @@ interface RightPlayerAvatarInterface {
 }
 
 const RightPlayerAvatar: React.FC<RightPlayerAvatarInterface> = ({ player, isAttacker }) => {
-  const { finishTurn } = useStore();
+  const { finishTurn, changeRightPlayerAnimation } = useStore();
 
   return (
     <div className='flex flex-start h-[55%] w-[7%] mr-[4.5%] justify-center items-center'>
       <img
         src={defaultAvatar}
-        alt='Player Avatar'
+        alt='Default Avatar'
         className='absolute h-[42%] object-cover z-10 rounded-[100%]' />
       {player && (
         <>
@@ -24,7 +24,7 @@ const RightPlayerAvatar: React.FC<RightPlayerAvatarInterface> = ({ player, isAtt
           <img
             src={player.avatar}
             alt='Player Avatar'
-            className={`h-[80%] w-[80%] object-cover z-10 rounded-[100%] animate__animated ${finishTurn && 'animate__fadeOut'} ${!finishTurn && 'animate__fadeIn'}`} />
+            className={`h-[80%] w-[80%] object-cover z-10 rounded-[100%] animate__animated ${changeRightPlayerAnimation && !isAttacker && 'animate__fadeOut'} ${finishTurn ? 'animate__fadeOut' : 'animate__fadeIn'}`} />
         </>
       )}
     </div>
