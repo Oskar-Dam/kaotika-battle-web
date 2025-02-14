@@ -15,22 +15,22 @@ const SIZES: Record<AvatarSize, {
   frame: string;
 }> = {
   small: {
-    container: 'w-[51px] h-[51px]',
-    border: 'w-[42px] h-[42px]',
-    avatar: 'w-[35px] h-[35px]',
-    frame: 'w-[65px] h-[65px]'
+    container: 'w-8 h-8',
+    border: 'w-[82%] h-[82%]',
+    avatar: 'w-[68%] h-[68%]',
+    frame: 'w-[127%] h-[127%]'
   },
   medium: {
-    container: 'w-[71px] h-[71px]',
-    border: 'w-[59px] h-[57px]',
-    avatar: 'w-[49px] h-[49px]',
-    frame: 'w-[91px] h-[91px]'
+    container: 'w-14 h-14',
+    border: 'w-[87%] h-[87%]',
+    avatar: 'w-[73%] h-[73%]',
+    frame: 'w-[131%] h-[131%]'
   },
   large: {
-    container: 'w-[91px] h-[91px]',
-    border: 'w-[76px] h-[74px]',
-    avatar: 'w-[63px] h-[63px]',
-    frame: 'w-[117px] h-[117px]'
+    container: 'w-20 h-20',
+    border: 'w-[89%] h-[89%]',
+    avatar: 'w-[75%] h-[75%]',
+    frame: 'w-[134%] h-[134%]'
   }
 };
 

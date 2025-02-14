@@ -5,9 +5,9 @@ import PlayerAvatar from './PlayerAvatar';
 type AvatarSize = 'small' | 'medium' | 'large';
 
 const calculateGridConfig = (playerCount: number): { gridClass: string; size: AvatarSize } => {
-  if (playerCount <= 6) return { gridClass: 'grid-cols-2', size: 'large' };
-  if (playerCount <= 12) return { gridClass: 'grid-cols-5', size: 'medium' };
-  return { gridClass: 'grid-cols-10', size: 'small' };
+  if (playerCount <= 6) return { gridClass: 'grid-cols-3', size: 'large' };
+  if (playerCount <= 48) return { gridClass: 'grid-cols-16', size: 'medium' };
+  return { gridClass: 'grid-cols-30', size: 'small' };
 };
 
 const Hud: React.FC = () => {
@@ -20,13 +20,15 @@ const Hud: React.FC = () => {
     <div>
       <div className="fixed overflow-x-hidden bottom-1 left-1/2 transform -translate-x-1/2 w-[102%] h-[25%] bg-[url('/images/hud-background.webp')] bg-cover bg-center shadow-lg p-2 flex items-stretch justify-between">
         {/* Kaotika Team */}
-        <div className="flex flex-col items-center justify-start w-[50%]">
-          <img
-            src="/images/kaotika.webp"
-            className="w-48 mb-1"
-            alt="Kaotika Team"
-          />
-          <div className={`grid ${kaotikaConfig.gridClass} gap-1 content-start h-full overflow-y-auto scrollbar-hide`}>
+        <div className="flex flex-col items-center justify-start w-[50%] relative">
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-48">
+            <img
+              src="/images/kaotika.webp"
+              className="w-full"
+              alt="Kaotika Team"
+            />
+          </div>
+          <div className={`grid ${kaotikaConfig.gridClass} gap-[2px] content-start h-full w-full mt-12`}>
             {players?.kaotika.map((player, index) => (
               <div
                 key={index}
@@ -56,13 +58,15 @@ const Hud: React.FC = () => {
         </div>
 
         {/* Dravokar Team */}
-        <div className="flex flex-col items-center justify-start w-[50%]">
-          <img
-            src={'/images/dravokar.webp'}
-            className="w-48 mb-1"
-            alt="Dravokar Team"
-          />
-          <div className={`grid ${dravokarConfig.gridClass} gap-1 content-start h-full overflow-y-auto scrollbar-hide`}>
+        <div className="flex flex-col items-center justify-start w-[50%] relative">
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-48">
+            <img
+              src={'/images/dravokar.webp'}
+              className="w-full"
+              alt="Dravokar Team"
+            />
+          </div>
+          <div className={`grid ${dravokarConfig.gridClass} gap-[2px] content-start h-full w-full mt-12`}>
             {players?.dravokar.map((player, index) => (
               <div
                 key={index}
