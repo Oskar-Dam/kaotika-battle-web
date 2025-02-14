@@ -1,5 +1,6 @@
 import { AttackInformation } from '@/Interfaces/AttackInformation';
 import { timeConstant } from '@/constants/TimeConstants';
+import updatePlayerById from '@/helpers/updatePlayerById';
 import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import { Player } from '../Interfaces/Player';
@@ -90,13 +91,22 @@ export const useSocketListeners = () => {
 
     function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
-      console.log(attackInfo.attack.targetPlayerId);
+      const id = attackInfo.attack.targetPlayerId;
+      const newHp = attackInfo.attack.hit_points;
+      
       if (attacker?.isBetrayer){
         setAttackRightPlayerAnimation(true);
       } else {
         setAttackLeftPlayerAnimation(true);
       }
       swordSwing();
+
+      const updatedPlayers = updatePlayerById(players, id, newHp);
+      setPlayers(updatedPlayers);
+
+      const updatedDefender = [...updatedPlayers.dravokar, ...updatedPlayers.kaotika].find(player => player._id === id);
+      setDefender(updatedDefender!);
+
       setTimeout(() => {
         if (attacker?.isBetrayer){
           setAttackRightPlayerAnimation(false);
@@ -105,7 +115,7 @@ export const useSocketListeners = () => {
         }
         setFinishTurn(true);
         setTimeout(() => {
-          socket.emit(socketName.TARGET_VALUE, {defender: defender?._id, attacker: attacker?._id});
+          socket.emit(socketName.TARGET_VALUE, { defender: defender?._id, attacker: attacker?._id });
           socket.emit(socketName.TURN_END);
         }, timeConstant.TURN_END);
       }, timeConstant.ATTACK_END);
