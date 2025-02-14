@@ -38,27 +38,16 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player, size = 'medium' }) => {
   const [currentHp, setCurrentHp] = useState(player.attributes.hit_points);
   const [borderStyle, setBorderStyle] = useState({});
 
-  const calculateBorderStyle = (isBetrayer: boolean, maxHitpoints: number, hitpoints: number) => {
-    const fixedDegreesStart = 0;
-    const fixedDegreesEnd = 180;
-    const totalDegrees = 360;
-
-    const lifeTotalDegrees = totalDegrees - (fixedDegreesEnd - fixedDegreesStart);
-
+  const calculateBorderStyle = (maxHitpoints: number, hitpoints: number) => {
     const life = Math.min(Math.max(hitpoints, 0), maxHitpoints);
+    const healthPercentage = (life / maxHitpoints) * 360;
 
-    const lifeDegrees = (life / maxHitpoints) * lifeTotalDegrees;
-
-    const bottomColor = isBetrayer ? 'black' : 'orange';
-    
     return {
 
       background: `conic-gradient(
         from 90deg,
-        ${bottomColor} ${fixedDegreesStart}deg,
-        ${bottomColor}  ${fixedDegreesEnd}deg,
-        red ${fixedDegreesEnd}deg ${fixedDegreesEnd + lifeDegrees}deg,
-        gray ${fixedDegreesEnd + lifeDegrees}deg ${totalDegrees}deg
+        red 0deg ${healthPercentage}deg,
+        gray ${healthPercentage}deg 360deg
       )`,
     };
   };
@@ -70,11 +59,10 @@ const PlayerAvatar: React.FC<PlayerProps> = ({ player, size = 'medium' }) => {
   }, [player.attributes.hit_points]);
 
   useEffect(() => {
-    const newStyle = calculateBorderStyle(player.isBetrayer,
-      player.base_attributes.hit_points,
+    const newStyle = calculateBorderStyle(player.base_attributes.hit_points,
       currentHp);
     setBorderStyle(newStyle);
-  }, [currentHp, player.isBetrayer, player.base_attributes.hit_points]);
+  }, [currentHp, player.base_attributes.hit_points]);
 
   const sizeClasses = SIZES[size];
 

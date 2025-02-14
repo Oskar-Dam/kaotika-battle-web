@@ -28,7 +28,7 @@ const Hud: React.FC = () => {
               alt="Kaotika Team"
             />
           </div>
-          <div className={`grid ${kaotikaConfig.gridClass} gap-[2px] content-start h-full w-full mt-12`}>
+          <div className={`grid ${kaotikaConfig.gridClass} gap-[4px] content-start h-full w-full mt-12`}>
             {players?.kaotika.map((player, index) => (
               <div
                 key={index}
@@ -42,7 +42,7 @@ const Hud: React.FC = () => {
         </div>
 
         {/* Center Section */}
-        <div className="flex items-center justify-center space-x-1 w-[7%]">
+        <div className="flex items-center justify-center w-[5%] border">
           <img
             src={'/images/left_separator.webp'}
             className="h-36"
@@ -58,15 +58,15 @@ const Hud: React.FC = () => {
         </div>
 
         {/* Dravokar Team */}
-        <div className="flex flex-col items-center justify-start w-[50%] relative">
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-48">
+        <div className="flex flex-col items-center justify-start w-[50%] relative border">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 border">
             <img
               src={'/images/dravokar.webp'}
               className="w-full"
               alt="Dravokar Team"
             />
           </div>
-          <div className={`grid ${dravokarConfig.gridClass} gap-[2px] content-start h-full w-full mt-12`}>
+          <div className={`grid ${dravokarConfig.gridClass} gap-[4px] content-start h-[100%] w-[98%] mt-13 border`}>
             {players?.dravokar.map((player, index) => (
               <div
                 key={index}
