@@ -73,45 +73,54 @@ export const useSocketListeners = () => {
     function webSelectedPlayer(id: string) {
       console.log('enter in selected player');
       const defender = getPlayerById(players, id);
-      if (defender?.isBetrayer){
-        setChangeRightPlayerAnimation(true);
-      } else {
-        setChangeLeftPlayerAnimation(true);
-      }
-      setTimeout(() => {
-        if (defender?.isBetrayer){
-          setChangeRightPlayerAnimation(false);
+      
+      if (defender && defender.isAlive) {
+        if (defender.isBetrayer) {
+          setChangeRightPlayerAnimation(true);
         } else {
-          setChangeLeftPlayerAnimation(false);
+          setChangeLeftPlayerAnimation(true);
         }
-        setDefender(defender!);
-        swap();
-      }, timeConstant.SELECTED_PLAYER);
+        
+        setTimeout(() => {
+          if (defender.isBetrayer) {
+            setChangeRightPlayerAnimation(false);
+          } else {
+            setChangeLeftPlayerAnimation(false);
+          }
+          setDefender(defender);
+          swap();
+        }, timeConstant.SELECTED_PLAYER);
+      } else {
+        console.log('Cannot select dead player or player not found');
+      }
     }
 
     function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       const id = attackInfo.attack.targetPlayerId;
       const newHp = attackInfo.attack.hit_points;
-
+    
       console.log('HP TO CHANGE');
       console.log(newHp);
       
-      if (attacker?.isBetrayer){
+      if (attacker?.isBetrayer) {
         setAttackRightPlayerAnimation(true);
       } else {
         setAttackLeftPlayerAnimation(true);
       }
       swordSwing();
-
+    
       const updatedPlayers = updatePlayerById(players, id, newHp);
       setPlayers(updatedPlayers);
-
-      const updatedDefender = [...updatedPlayers.dravokar, ...updatedPlayers.kaotika].find(player => player._id === id);
-      setDefender(updatedDefender!);
-
+    
+      const updatedDefender = [...updatedPlayers.dravokar, ...updatedPlayers.kaotika].find(player => player._id === id && player.isAlive);
+      
+      if (updatedDefender) {
+        setDefender(updatedDefender);
+      }
+    
       setTimeout(() => {
-        if (attacker?.isBetrayer){
+        if (attacker?.isBetrayer) {
           setAttackRightPlayerAnimation(false);
         } else {
           setAttackLeftPlayerAnimation(false);
