@@ -3,7 +3,6 @@ import { randomAnimation } from '@/helpers/randomAnimation';
 import { Player } from '@/Interfaces/Player';
 import useStore from '@/store/store';
 import { useEffect, useState } from 'react';
-import RollMessage from '../messages/RollMessage';
 
 interface Props {
     chances: {
@@ -112,7 +111,7 @@ const PercentageBar: React.FC<Props> = ({chances, receivedValue, player}) => {
               />
             </div>
           </div>
-          <RollMessage />
+          {/* <RollMessage /> */}
         </>
       ) : null}
     </>
