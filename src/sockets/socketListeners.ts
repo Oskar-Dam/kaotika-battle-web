@@ -85,10 +85,17 @@ export const useSocketListeners = () => {
     function attackInfo(attackInfo: AttackInformation) {
       console.log('UPDATE PLAYER SOCKET RECEIVED');
       const id = attackInfo.attack.targetPlayerId;
-      const hitPointsToChange = attackInfo.attack.hit_points;
+      const newHp = attackInfo.attack.hit_points;
+      
       setAttackAnimation(true);
       swordSwing();
-      setPlayers(updatePlayerById(players, id, hitPointsToChange));
+
+      const updatedPlayers = updatePlayerById(players, id, newHp);
+      setPlayers(updatedPlayers);
+
+      const updatedDefender = [...updatedPlayers.dravokar, ...updatedPlayers.kaotika].find(player => player._id === id);
+      setDefender(updatedDefender!);
+
       setTimeout(() => {
         setAttackAnimation(false);
         setFinishTurn(true);
